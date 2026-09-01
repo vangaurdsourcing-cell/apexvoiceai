@@ -326,6 +326,31 @@ async def health():
     }
 
 
+# ─── Auto-seed clients on startup if empty ─────────────────
+@app.on_event("startup")
+async def seed_clients():
+    clients = Client.list_all()
+    if len(clients) == 0:
+        import uuid
+        default_clients = [
+            {"name": "V Care Hospital", "phone": "+911122334455", "plan": "pro", "price_per_month": 2999, "whatsapp_number": "+917996700712"},
+            {"name": "Ayaansh Hospital", "phone": "+911122334466", "plan": "pro", "price_per_month": 2999, "whatsapp_number": "+917996700712"},
+            {"name": "Apollo Hospital Delhi", "phone": "+911122334477", "plan": "basic", "price_per_month": 999, "whatsapp_number": "+917996700712"},
+            {"name": "Max Healthcare", "phone": "+911122334488", "plan": "enterprise", "price_per_month": 9999, "whatsapp_number": "+917996700712"},
+            {"name": "Fortis Hospital", "phone": "+911122334499", "plan": "pro", "price_per_month": 2999, "whatsapp_number": "+917996700712"},
+        ]
+        for c in default_clients:
+            client = Client(
+                name=c["name"],
+                phone=c["phone"],
+                plan=c["plan"],
+                price_per_month=c["price_per_month"],
+                whatsapp_number=c["whatsapp_number"],
+            )
+            client.save()
+        print(f"Seeded {len(default_clients)} default clients")
+
+
 if __name__ == "__main__":
     import uvicorn
     print("Apex AI Platform v1.0.0")
