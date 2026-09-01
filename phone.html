@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Apex AI</title>
+<style>
+  :root {
+    --bg: #0a0e14;
+    --card: #111820;
+    --border: #1e2a36;
+    --accent: #00e5ff;
+    --accent2: #b388ff;
+    --green: #76ff03;
+    --red: #ff5252;
+    --text: #e0e6ed;
+    --muted: #6b7f92;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* Header */
+  .header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .header h1 {
+    font-size: 18px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .status-badge {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; color: var(--muted);
+  }
+  .status-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--muted);
+  }
+  .status-dot.connected { background: var(--green); animation: pulse 1.5s infinite; }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* Language selector */
+  .lang-bar {
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    flex-shrink: 0;
+  }
+  .lang-btn {
+    padding: 5px 12px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .lang-btn.active {
+    background: rgba(0, 229, 255, 0.12);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .lang-btn:hover { border-color: var(--accent); }
+
+  /* Chat area */
+  .chat {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .msg {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    animation: fadeIn 0.3s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .msg.agent {
+    align-self: flex-start;
+    background: rgba(0, 229, 255, 0.08);
+    border: 1px solid rgba(0, 229, 255, 0.15);
+    border-bottom-left-radius: 4px;
+  }
+  .msg.user {
+    align-self: flex-end;
+    background: rgba(179, 136, 255, 0.1);
+    border: 1px solid rgba(179, 136, 255, 0.15);
+    border-bottom-right-radius: 4px;
+  }
+  .msg.system {
+    align-self: center;
+    background: rgba(255, 193, 7, 0.08);
+    border: 1px solid rgba(255, 193, 7, 0.12);
+    color: var(--muted);
+    font-size: 12px;
+    max-width: 90%;
+    text-align: center;
+  }
+  .msg .lang-tag {
+    font-size: 10px;
+    color: var(--muted);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Typing indicator */
+  .typing {
+    align-self: flex-start;
+    display: none;
+    gap: 4px;
+    padding: 12px 16px;
+    background: rgba(0, 229, 255, 0.06);
+    border-radius: 16px;
+    border-bottom-left-radius: 4px;
+  }
+  .typing.show { display: flex; }
+  .typing span {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: typingDot 1.2s infinite;
+  }
+  .typing span:nth-child(2) { animation-delay: 0.2s; }
+  .typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typingDot {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* Bottom controls */
+  .controls {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+    background: var(--card);
+  }
+  .text-input {
+    flex: 1;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 10px 16px;
+    color: var(--text);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .text-input:focus { border-color: var(--accent); }
+  .text-input::placeholder { color: var(--muted); }
+
+  .mic-btn, .send-btn {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .mic-btn {
+    background: rgba(255, 82, 82, 0.12);
+    color: var(--red);
+    border: 1px solid rgba(255, 82, 82, 0.2);
+  }
+  .mic-btn.listening {
+    background: var(--red);
+    color: white;
+    animation: micPulse 1s infinite;
+  }
+  @keyframes micPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.4); }
+    50% { box-shadow: 0 0 0 12px rgba(255, 82, 82, 0); }
+  }
+  .send-btn {
+    background: rgba(0, 229, 255, 0.12);
+    color: var(--accent);
+    border: 1px solid rgba(0, 229, 255, 0.2);
+  }
+  .send-btn:hover { background: rgba(0, 229, 255, 0.2); }
+
+  /* Waveform */
+  .waveform {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    height: 40px;
+    padding: 0 12px;
+  }
+  .waveform.show { display: flex; }
+
+  /* Speaking indicator */
+  .speaking-indicator {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: rgba(118, 255, 3, 0.08);
+    border: 1px solid rgba(118, 255, 3, 0.15);
+    border-radius: 12px;
+    font-size: 11px;
+    color: var(--green);
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+  }
+  .speaking-indicator.show { display: flex; }
+  .speaking-indicator .dot {
+    width: 6px; height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: speakPulse 0.6s infinite;
+  }
+  @keyframes speakPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.5; }
+  }
+  .waveform .bar {
+    width: 3px;
+    background: var(--red);
+    border-radius: 2px;
+    animation: wave 0.8s infinite ease-in-out;
+  }
+  .waveform .bar:nth-child(1) { height: 12px; animation-delay: 0s; }
+  .waveform .bar:nth-child(2) { height: 20px; animation-delay: 0.1s; }
+  .waveform .bar:nth-child(3) { height: 28px; animation-delay: 0.2s; }
+  .waveform .bar:nth-child(4) { height: 20px; animation-delay: 0.3s; }
+  .waveform .bar:nth-child(5) { height: 12px; animation-delay: 0.4s; }
+  @keyframes wave {
+    0%, 100% { transform: scaleY(0.5); }
+    50% { transform: scaleY(1.3); }
+  }
+
+  /* Speech support check */
+  .no-speech-warning {
+    display: none;
+    padding: 8px 16px;
+    background: rgba(255, 193, 7, 0.1);
+    border: 1px solid rgba(255, 193, 7, 0.2);
+    border-radius: 8px;
+    font-size: 12px;
+    color: #ffc107;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🇮🇳 Apex AI</h1>
+  <div class="status-badge">
+    <span class="status-dot" id="statusDot"></span>
+    <span id="statusText">Connecting...</span>
+  </div>
+</div>
+
+<div class="lang-bar" id="langBar">
+  <button class="lang-btn active" data-lang="hi">🇮🇳 हिन्दी</button>
+  <button class="lang-btn" data-lang="ta">🇮🇳 தமிழ்</button>
+  <button class="lang-btn" data-lang="te">🇮🇳 తెలుగు</button>
+  <button class="lang-btn" data-lang="bn">🇮🇳 বাংলা</button>
+  <button class="lang-btn" data-lang="mr">🇮🇳 मराठी</button>
+  <button class="lang-btn" data-lang="gu">🇮🇳 ગુજરાતી</button>
+  <button class="lang-btn" data-lang="kn">🇮🇳 ಕನ್ನಡ</button>
+  <button class="lang-btn" data-lang="ml">🇮🇳 മലയാളം</button>
+  <button class="lang-btn" data-lang="pa">🇮🇳 ਪੰਜਾਬੀ</button>
+  <button class="lang-btn" data-lang="en">🇬🇧 English</button>
+</div>
+
+<div class="speaking-indicator" id="speakingIndicator"><span class="dot"></span> Agent speaking...</div>
+<div class="no-speech-warning" id="noSpeechWarning">
+  ⚠️ Speech recognition not supported in this browser. Use Chrome or Edge for voice input. You can still type messages.
+</div>
+
+<div class="chat" id="chat">
+  <div class="msg system">🗣️ Apex AI ready. Tap the microphone to speak, or type a message.</div>
+  <div class="typing" id="typing"><span></span><span></span><span></span></div>
+</div>
+
+<div class="controls">
+  <button class="mic-btn" id="micBtn" title="Hold to speak">🎤</button>
+  <div class="waveform" id="waveform">
+    <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+  </div>
+  <input class="text-input" id="textInput" placeholder="Type a message..." autocomplete="off">
+  <button class="send-btn" id="sendBtn" title="Send">➤</button>
+</div>
+
+<script>
+const LANG_MAP = {
+  hi: "hi-IN", ta: "ta-IN", te: "te-IN", bn: "bn-IN",
+  mr: "mr-IN", gu: "gu-IN", kn: "kn-IN", ml: "ml-IN",
+  pa: "pa-IN", en: "en-US",
+};
+
+let currentLang = "hi";
+let ws = null;
+let isListening = false;
+let recognition = null;
+
+// ─── DOM ───
+const chat = document.getElementById("chat");
+const typing = document.getElementById("typing");
+const micBtn = document.getElementById("micBtn");
+const sendBtn = document.getElementById("sendBtn");
+const textInput = document.getElementById("textInput");
+const waveform = document.getElementById("waveform");
+const statusDot = document.getElementById("statusDot");
+const statusText = document.getElementById("statusText");
+const noSpeechWarning = document.getElementById("noSpeechWarning");
+
+// ─── Speech Recognition (browser + Sarvam AI fallback) ───
+let mediaRecorder = null;
+let audioChunks = [];
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (SpeechRecognition) {
+  recognition = new SpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = true;
+
+  recognition.onresult = (event) => {
+    const result = event.results[event.results.length - 1];
+    const transcript = result[0].transcript;
+    if (result.isFinal) {
+      sendMessage(transcript);
+      stopListening();
+    }
+  };
+
+  recognition.onerror = (e) => {
+    console.log("Browser speech error:", e.error, "— trying Sarvam AI STT");
+    stopListening();
+  };
+
+  recognition.onend = () => stopListening();
+}
+
+// ─── WebSocket ───
+function connectWS() {
+  const proto = location.protocol === "https:" ? "wss:" : "ws:";
+  ws = new WebSocket(`${proto}//${location.host}/ws`);
+
+  ws.onopen = () => {
+    statusDot.classList.add("connected");
+    statusText.textContent = "Connected";
+  };
+
+  ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    typing.classList.remove("show");
+    addMessage(data.response, "agent", data.language);
+    if (data.call_id) lastCallId = data.call_id;
+    // Fetch TTS audio via HTTP (non-blocking)
+    fetchTTS(data.response, data.language);
+  };
+
+  ws.onclose = () => {
+    statusDot.classList.remove("connected");
+    statusText.textContent = "Disconnected";
+    // Fetch call summary after disconnect
+    fetchCallSummary();
+    setTimeout(connectWS, 2000);
+  };
+}
+
+connectWS();
+
+// ─── Chat ───
+function addMessage(text, type, lang) {
+  const div = document.createElement("div");
+  div.className = `msg ${type}`;
+  if (lang) {
+    const tag = document.createElement("div");
+    tag.className = "lang-tag";
+    tag.textContent = lang.toUpperCase();
+    div.appendChild(tag);
+  }
+  const body = document.createElement("div");
+  body.textContent = text;
+  div.appendChild(body);
+  chat.insertBefore(div, typing);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function sendMessage(text) {
+  if (!text.trim()) return;
+  addMessage(text, "user", currentLang);
+  typing.classList.add("show");
+  ws.send(JSON.stringify({ text, language: currentLang }));
+}
+
+// ─── Mic — browser STT first, Sarvam AI STT as fallback ───
+function startListening() {
+  isListening = true;
+  micBtn.classList.add("listening");
+  waveform.classList.add("show");
+
+  // Try browser STT first
+  if (recognition) {
+    recognition.lang = LANG_MAP[currentLang] || "hi-IN";
+    try {
+      recognition.start();
+      return;
+    } catch(e) {}
+  }
+
+  // Fallback: record audio and send to Sarvam AI STT
+  startRecording();
+}
+
+function startRecording() {
+  audioChunks = [];
+  navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+    mediaRecorder = new MediaRecorder(stream);
+    mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
+    mediaRecorder.onstop = () => {
+      stream.getTracks().forEach(t => t.stop());
+      const blob = new Blob(audioChunks, { type: "audio/wav" });
+      sendAudioToSarvam(blob);
+    };
+    mediaRecorder.start();
+    // Auto-stop after 10 seconds
+    setTimeout(() => { if (mediaRecorder && mediaRecorder.state === "recording") mediaRecorder.stop(); }, 10000);
+  }).catch(e => {
+    console.warn("Mic access denied:", e);
+    stopListening();
+  });
+}
+
+async function sendAudioToSarvam(audioBlob) {
+  typing.classList.add("show");
+  const formData = new FormData();
+  formData.append("file", audioBlob, "audio.wav");
+  formData.append("lang", currentLang);
+
+  try {
+    const resp = await fetch("/stt", { method: "POST", body: formData });
+    const data = await resp.json();
+    typing.classList.remove("show");
+    if (data.text) {
+      sendMessage(data.text);
+    } else {
+      addMessage("Could not understand. Please try again.", "system");
+    }
+  } catch (e) {
+    typing.classList.remove("show");
+    addMessage("STT error. Please type instead.", "system");
+  }
+}
+
+function stopListening() {
+  isListening = false;
+  micBtn.classList.remove("listening");
+  waveform.classList.remove("show");
+  if (recognition) try { recognition.stop(); } catch(e) {}
+  if (mediaRecorder && mediaRecorder.state === "recording") mediaRecorder.stop();
+}
+
+micBtn.addEventListener("click", () => {
+  if (isListening) stopListening();
+  else startListening();
+});
+
+// ─── Text input ───
+sendBtn.addEventListener("click", () => {
+  sendMessage(textInput.value);
+  textInput.value = "";
+});
+
+textInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage(textInput.value);
+    textInput.value = "";
+  }
+});
+
+// ─── Language selector ───
+document.querySelectorAll(".lang-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelector(".lang-btn.active").classList.remove("active");
+    btn.classList.add("active");
+    currentLang = btn.dataset.lang;
+    addMessage(`Language switched to ${btn.textContent.trim()}`, "system");
+  });
+});
+
+// ─── TTS using server /tts endpoint (Sarvam AI Bulbul v3 or Google fallback) ───
+let currentAudio = null;
+const speakingIndicator = document.getElementById("speakingIndicator");
+
+function showSpeaking() { speakingIndicator.classList.add("show"); }
+function hideSpeaking() { speakingIndicator.classList.remove("show"); }
+
+function stopSpeaking() {
+  if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; }
+  hideSpeaking();
+}
+
+// Non-blocking TTS fetch — called after WebSocket sends text
+function fetchTTS(text, lang) {
+  stopSpeaking();
+  const cleanText = text.replace(/[^\w\s\u0900-\u097F\u0B80-\u0BFF\u0C00-\u0C7F\u0C80-\u0CFF\u0D00-\u0D7F\u0A00-\u0A7F\u0A80-\u0AFF\u0980-\u09FF\u0B00-\u0B7F\u0600-\u06FF\uABE0-\uABFF\u1C50-\u1C7F.,!?\u20B9]/g, ' ').trim();
+  if (!cleanText) return;
+
+  const ttsLang = lang || "hi";
+  const encoded = encodeURIComponent(cleanText);
+  const url = `/tts?text=${encoded}&lang=${ttsLang}`;
+
+  fetch(url)
+    .then(r => {
+      if (!r.ok) throw new Error(`TTS ${r.status}`);
+      return r.blob();
+    })
+    .then(blob => {
+      const blobUrl = URL.createObjectURL(blob);
+      currentAudio = new Audio(blobUrl);
+      currentAudio.volume = 1.0;
+      currentAudio.playbackRate = 1.05;  // natural conversational pace
+      currentAudio.onplay = () => showSpeaking();
+      currentAudio.onended = () => { hideSpeaking(); URL.revokeObjectURL(blobUrl); };
+      currentAudio.onerror = () => { hideSpeaking(); URL.revokeObjectURL(blobUrl); };
+      return currentAudio.play();
+    })
+    .catch(e => {
+      console.warn("TTS fetch failed:", e);
+      hideSpeaking();
+    });
+}
+
+// Fetch call summary after call ends
+let lastCallId = null;
+function fetchCallSummary() {
+  if (!lastCallId) return;
+  fetch("/api/calls/" + lastCallId)
+    .then(r => r.json())
+    .then(data => {
+      if (data.summary) {
+        const s = data.summary;
+        const div = document.createElement("div");
+        div.className = "msg system";
+        div.style.cssText = "background: rgba(0,229,255,0.05); border-color: rgba(0,229,255,0.2); max-width: 95%; text-align: left; padding: 14px;";
+        div.innerHTML = "<strong>⚡ Apex AI — Call Summary</strong><br><br>" +
+          "⏰ Duration: " + Math.round(data.duration_seconds) + "s<br>" +
+          "★ " + (s.call_purpose || "N/A") + "<br>" +
+          "✅ Outcome: " + (s.outcome || "N/A") + "<br>" +
+          "☊ Sentiment: " + (s.customer_sentiment || "N/A") + "<br>" +
+          "☆ Interest: " + (s.customer_interest || "N/A");
+        chat.insertBefore(div, typing);
+        chat.scrollTop = chat.scrollHeight;
+      }
+    })
+    .catch(() => {});
+}
+</script>
+</body>
+</html>
