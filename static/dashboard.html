@@ -1,274 +1,274 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Apex AI — Intelligent Voice Agent Platform</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#09090b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Apex AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
-
-/* ═══════════════════════════════════════════
-   RESET & VARIABLES
-   ═══════════════════════════════════════════ */
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#09090b;--bg2:#0c0c0f;--surface:#111114;--surface2:#18181c;--surface3:#1f1f24;
-  --glass:rgba(255,255,255,0.02);--glass2:rgba(255,255,255,0.04);--glass3:rgba(255,255,255,0.06);
-  --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.10);
-  --text:#fafafa;--text2:#a1a1aa;--text3:#71717a;--text4:#52525b;
-  --accent:#818cf8;--accent2:#a5b4fc;--accent-dim:rgba(129,140,248,0.1);
-  --green:#34d399;--green-dim:rgba(52,211,153,0.1);
-  --red:#f87171;--red-dim:rgba(248,113,113,0.1);
-  --yellow:#fbbf24;--yellow-dim:rgba(251,191,36,0.1);
-  --blue:#60a5fa;--blue-dim:rgba(96,165,250,0.1);
-  --purple:#c084fc;--purple-dim:rgba(192,132,252,0.1);
-  --pink:#f472b6;--pink-dim:rgba(244,114,182,0.1);
-  --radius:12px;--radius-lg:16px;--radius-xl:20px;
-  --shadow:0 1px 2px rgba(0,0,0,0.4),0 4px 16px rgba(0,0,0,0.2);
-  --shadow-lg:0 4px 12px rgba(0,0,0,0.5),0 16px 48px rgba(0,0,0,0.3);
-  --ease:cubic-bezier(0.16,1,0.3,1);--ease-bounce:cubic-bezier(0.34,1.56,0.64,1);
+:root{--transition:0.3s cubic-bezier(0.16,1,0.3,1)}
+/* ═══ DARK THEME ═══ */
+[data-theme="dark"]{
+--bg:#09090b;--bg2:#0c0c0f;--surface:#111114;--surface2:#18181c;--surface3:#1f1f24;
+--glass:rgba(255,255,255,0.03);--glass2:rgba(255,255,255,0.06);
+--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.12);
+--text:#fafafa;--text2:#a1a1aa;--text3:#71717a;--text4:#52525b;
+--accent:#818cf8;--accent2:#a5b4fc;--accent-dim:rgba(129,140,248,0.12);
+--green:#34d399;--green-dim:rgba(52,211,153,0.12);
+--red:#f87171;--red-dim:rgba(248,113,113,0.12);
+--yellow:#fbbf24;--yellow-dim:rgba(251,191,36,0.12);
+--blue:#60a5fa;--blue-dim:rgba(96,165,250,0.12);
+--purple:#c084fc;--purple-dim:rgba(192,132,252,0.12);
+--pink:#f472b6;--pink-dim:rgba(244,114,182,0.12);
+--shadow:0 1px 3px rgba(0,0,0,0.4),0 4px 16px rgba(0,0,0,0.2);
+--shadow-lg:0 8px 32px rgba(0,0,0,0.5);
+--loader-bg:#09090b;--card-gradient:linear-gradient(135deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));
 }
-html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+/* ═══ LIGHT THEME ═══ */
+[data-theme="light"]{
+--bg:#fafafa;--bg2:#f4f4f5;--surface:#ffffff;--surface2:#f8f8fa;--surface3:#e4e4e7;
+--glass:rgba(0,0,0,0.02);--glass2:rgba(0,0,0,0.04);
+--border:rgba(0,0,0,0.06);--border2:rgba(0,0,0,0.12);
+--text:#18181b;--text2:#52525b;--text3:#71717a;--text4:#a1a1aa;
+--accent:#6366f1;--accent2:#818cf8;--accent-dim:rgba(99,102,241,0.08);
+--green:#10b981;--green-dim:rgba(16,185,129,0.08);
+--red:#ef4444;--red-dim:rgba(239,68,68,0.08);
+--yellow:#f59e0b;--yellow-dim:rgba(245,158,11,0.08);
+--blue:#3b82f6;--blue-dim:rgba(59,130,246,0.08);
+--purple:#a855f7;--purple-dim:rgba(168,85,247,0.08);
+--pink:#ec4899;--pink-dim:rgba(236,72,153,0.08);
+--shadow:0 1px 3px rgba(0,0,0,0.08),0 4px 16px rgba(0,0,0,0.04);
+--shadow-lg:0 8px 32px rgba(0,0,0,0.12);
+--loader-bg:#ffffff;--card-gradient:linear-gradient(135deg,rgba(0,0,0,0.01),rgba(0,0,0,0.005));
+}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;transition:background var(--transition),color var(--transition)}
 
-/* ═══════════════════════════════════════════
-   LOADER — RothFinder-style intro
-   ═══════════════════════════════════════════ */
-.loader{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s var(--ease),visibility .6s}
+/* ═══ LOADER ═══ */
+.loader{position:fixed;inset:0;background:var(--loader-bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s,visibility .5s}
 .loader.done{opacity:0;visibility:hidden;pointer-events:none}
-.loader-logo{font-size:48px;font-weight:900;letter-spacing:-2px;background:linear-gradient(135deg,#818cf8 0%,#c084fc 50%,#f472b6 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;opacity:0;animation:loaderFadeIn .8s var(--ease) .2s forwards}
-.loader-bar{width:120px;height:2px;background:var(--surface3);border-radius:2px;margin-top:24px;overflow:hidden;opacity:0;animation:loaderFadeIn .6s var(--ease) .5s forwards}
-.loader-bar::after{content:'';display:block;width:40%;height:100%;background:linear-gradient(90deg,#818cf8,#c084fc);border-radius:2px;animation:loaderSlide 1.2s var(--ease) .6s infinite}
-@keyframes loaderFadeIn{to{opacity:1}}
-@keyframes loaderSlide{0%{transform:translateX(-100%)}100%{transform:translateX(350%)}}
+.loader-logo{font-size:clamp(36px,8vw,52px);font-weight:900;letter-spacing:-2px;background:linear-gradient(135deg,#6366f1,#a855f7,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;opacity:0;animation:fadeIn .6s .1s forwards}
+.loader-sub{font-size:13px;color:var(--text3);margin-top:8px;opacity:0;animation:fadeIn .6s .3s forwards}
+.loader-bar{width:100px;height:2px;background:var(--surface3);border-radius:2px;margin-top:20px;overflow:hidden;opacity:0;animation:fadeIn .4s .5s forwards}
+.loader-bar::after{content:'';display:block;width:40%;height:100%;background:linear-gradient(90deg,#6366f1,#a855f7);border-radius:2px;animation:slide 1s ease .6s infinite}
+@keyframes fadeIn{to{opacity:1}}
+@keyframes slide{0%{transform:translateX(-100%)}100%{transform:translateX(350%)}}
 
-/* ═══════════════════════════════════════════
-   LAYOUT
-   ═══════════════════════════════════════════ */
-.app{display:flex;min-height:100vh;opacity:0;transition:opacity .5s var(--ease) .3s}
-.app.visible{opacity:1}
+/* ═══ MOBILE NAV ═══ */
+.mobile-header{display:none;position:fixed;top:0;left:0;right:0;height:56px;background:rgba(var(--bg),0.85);backdrop-filter:blur(20px) saturate(1.8);-webkit-backdrop-filter:blur(20px) saturate(1.8);border-bottom:1px solid var(--border);z-index:100;padding:0 16px;align-items:center;justify-content:space-between}
+.mobile-header .brand{display:flex;align-items:center;gap:8px;font-weight:700;font-size:16px}
+.mobile-header .brand .mark{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#6366f1,#a855f7);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:white}
+.hamburger{width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s}
+.hamburger:active{transform:scale(0.95)}
+.hamburger svg{width:18px;height:18px;color:var(--text2)}
 
-/* ═══════════════════════════════════════════
-   SIDEBAR — Clean, minimal
-   ═══════════════════════════════════════════ */
-.sidebar{position:fixed;left:0;top:0;bottom:0;width:240px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:100;transition:transform .4s var(--ease)}
-.sidebar-header{padding:28px 24px 24px;border-bottom:1px solid var(--border)}
+/* ═══ SIDEBAR ═══ */
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:240px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:100;transition:transform .35s var(--transition)}
+.sidebar-header{padding:24px 20px 20px;border-bottom:1px solid var(--border)}
 .sidebar-brand{display:flex;align-items:center;gap:10px}
-.sidebar-brand .mark{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#818cf8,#c084fc);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:white}
-.sidebar-brand .wordmark{font-size:17px;font-weight:700;letter-spacing:-0.3px}
+.sidebar-brand .mark{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#6366f1,#a855f7);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:white}
+.sidebar-brand .wordmark{font-size:17px;font-weight:700;letter-spacing:-0.5px}
 .sidebar-brand .wordmark span{color:var(--text3);font-weight:400}
-.sidebar-nav{flex:1;padding:12px 8px;overflow-y:auto}
-.sidebar-section{font-size:10px;font-weight:600;color:var(--text4);text-transform:uppercase;letter-spacing:1.5px;padding:16px 16px 8px}
-.nav-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--radius);color:var(--text3);text-decoration:none;font-size:13px;font-weight:500;transition:all .2s var(--ease);position:relative;cursor:pointer;margin:1px 0}
+.sidebar-nav{flex:1;padding:8px;overflow-y:auto}
+.sidebar-section{font-size:10px;font-weight:600;color:var(--text4);text-transform:uppercase;letter-spacing:1.5px;padding:16px 14px 6px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;color:var(--text3);text-decoration:none;font-size:13px;font-weight:500;transition:all .2s;position:relative;cursor:pointer;margin:1px 0}
 .nav-item:hover{background:var(--glass2);color:var(--text2)}
 .nav-item.active{background:var(--accent-dim);color:var(--accent)}
 .nav-item.active::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:16px;background:var(--accent);border-radius:0 3px 3px 0}
-.nav-item svg{width:16px;height:16px;opacity:0.6;flex-shrink:0}
+.nav-item svg{width:16px;height:16px;opacity:.5;flex-shrink:0}
 .nav-item.active svg{opacity:1}
-.nav-item .badge-count{margin-left:auto;background:var(--accent-dim);color:var(--accent);font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px}
-.sidebar-footer{padding:16px 24px;border-top:1px solid var(--border);font-size:11px;color:var(--text4);letter-spacing:0.5px}
+.nav-badge{margin-left:auto;background:var(--accent-dim);color:var(--accent);font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px}
+.sidebar-footer{padding:14px 20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.sidebar-footer .version{font-size:11px;color:var(--text4)}
+.theme-toggle{width:36px;height:20px;border-radius:10px;background:var(--surface3);border:none;cursor:pointer;position:relative;transition:background .3s}
+.theme-toggle::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:white;transition:transform .3s var(--transition);box-shadow:0 1px 3px rgba(0,0,0,0.2)}
+[data-theme="light"] .theme-toggle{background:var(--accent)}
+[data-theme="light"] .theme-toggle::after{transform:translateX(16px)}
+.theme-toggle .icon{position:absolute;top:3px;font-size:10px;transition:opacity .3s}
+.theme-toggle .moon{left:4px;opacity:1}
+.theme-toggle .sun{right:4px;opacity:0}
+[data-theme="light"] .theme-toggle .moon{opacity:0}
+[data-theme="light"] .theme-toggle .sun{opacity:1}
 
-/* ═══════════════════════════════════════════
-   MAIN CONTENT
-   ═══════════════════════════════════════════ */
-.main{margin-left:240px;flex:1;min-height:100vh}
-.topbar{position:sticky;top:0;z-index:50;background:rgba(9,9,11,0.8);backdrop-filter:blur(20px) saturate(1.2);border-bottom:1px solid var(--border);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between}
-.topbar-title{font-size:14px;font-weight:500;color:var(--text2)}
+/* ═══ MAIN ═══ */
+.main{margin-left:240px;min-height:100vh;transition:margin .3s}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(var(--bg),0.8);backdrop-filter:blur(20px) saturate(1.8);-webkit-backdrop-filter:blur(20px) saturate(1.8);border-bottom:1px solid var(--border);padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between}
+.topbar-title{font-size:14px;font-weight:600;color:var(--text2)}
 .topbar-actions{display:flex;align-items:center;gap:8px}
-.topbar-btn{padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text3);font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;font-family:inherit}
+.topbar-btn{padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text3);font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;font-family:inherit}
 .topbar-btn:hover{background:var(--glass2);color:var(--text2);border-color:var(--border2)}
-.topbar-btn.primary{background:linear-gradient(135deg,#818cf8,#c084fc);color:white;border:none;font-weight:600;box-shadow:0 2px 8px rgba(129,140,248,0.25)}
-.topbar-btn.primary:hover{box-shadow:0 4px 16px rgba(129,140,248,0.35);transform:translateY(-1px)}
+.topbar-btn.primary{background:var(--accent);color:white;border:none;font-weight:600;box-shadow:0 2px 8px rgba(99,102,241,0.3)}
+.topbar-btn.primary:hover{box-shadow:0 4px 16px rgba(99,102,241,0.4);transform:translateY(-1px)}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.content{padding:24px 28px 48px}
 
-.content{padding:28px 32px 48px}
+/* ═══ PAGES ═══ */
+.page{display:none}.page.active{display:block;animation:pageIn .4s var(--transition)}
+@keyframes pageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-/* ═══════════════════════════════════════════
-   PAGES — Smooth transitions
-   ═══════════════════════════════════════════ */
-.page{display:none}
-.page.active{display:block;animation:pageIn .5s var(--ease)}
-@keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-
-/* ═══════════════════════════════════════════
-   SECTION HEADERS
-   ═══════════════════════════════════════════ */
-.section-header{margin-bottom:28px}
-.section-header h1{font-size:28px;font-weight:800;letter-spacing:-0.5px;margin-bottom:6px}
+/* ═══ SECTION HEADERS ═══ */
+.section-header{margin-bottom:24px}
+.section-header h1{font-size:clamp(24px,4vw,32px);font-weight:800;letter-spacing:-0.5px;margin-bottom:4px}
 .section-header p{font-size:14px;color:var(--text3);line-height:1.5}
-.section-header .gradient-text{background:linear-gradient(135deg,#818cf8,#c084fc,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 
-/* ═══════════════════════════════════════════
-   STAT CARDS — Animated counters
-   ═══════════════════════════════════════════ */
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
-.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 24px;position:relative;overflow:hidden;transition:all .3s var(--ease);cursor:default}
+/* ═══ STAT CARDS ═══ */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;position:relative;overflow:hidden;transition:all .3s var(--transition);cursor:default}
 .stat-card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:var(--shadow)}
-.stat-card .stat-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;margin-bottom:14px}
-.stat-card .stat-label{font-size:11px;font-weight:600;color:var(--text4);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.stat-card .stat-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.stat-card .stat-label{font-size:11px;font-weight:600;color:var(--text4);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
 .stat-card .stat-value{font-size:28px;font-weight:800;letter-spacing:-0.5px;line-height:1}
-.stat-card .stat-change{font-size:11px;margin-top:8px;font-weight:500;display:flex;align-items:center;gap:4px}
-.stat-card .stat-change.up{color:var(--green)}.stat-card .stat-change.down{color:var(--red)}
-.stat-card::after{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;filter:blur(40px);opacity:0.15;pointer-events:none}
-.stat-card.c-blue::after{background:var(--blue)}.stat-card.c-green::after{background:var(--green)}
-.stat-card.c-purple::after{background:var(--purple)}.stat-card.c-pink::after{background:var(--pink)}
+.stat-card .stat-sub{font-size:11px;margin-top:8px;font-weight:500;color:var(--text3)}
 .stat-card .stat-icon.blue{background:var(--blue-dim);color:var(--blue)}
 .stat-card .stat-icon.green{background:var(--green-dim);color:var(--green)}
 .stat-card .stat-icon.purple{background:var(--purple-dim);color:var(--purple)}
 .stat-card .stat-icon.pink{background:var(--pink-dim);color:var(--pink)}
-.stat-card .sv{color:var(--blue)}.stat-card.c-green .sv{color:var(--green)}
-.stat-card.c-purple .sv{color:var(--purple)}.stat-card.c-pink .sv{color:var(--pink)}
+.stat-card .sv-blue{color:var(--blue)}.stat-card .sv-green{color:var(--green)}.stat-card .sv-purple{color:var(--purple)}.stat-card .sv-pink{color:var(--pink)}
+.stat-card::after{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;filter:blur(40px);opacity:.12;pointer-events:none}
+.stat-card.c-blue::after{background:var(--blue)}.stat-card.c-green::after{background:var(--green)}.stat-card.c-purple::after{background:var(--purple)}.stat-card.c-pink::after{background:var(--pink)}
 
-/* ═══════════════════════════════════════════
-   CARDS & PANELS
-   ═══════════════════════════════════════════ */
-.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
-.panel-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.panel-header h3{font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px}
-.panel-header h3 svg{width:16px;height:16px;color:var(--text4)}
-.panel-body{padding:0}
-.panel-body.padded{padding:20px}
+/* ═══ PANELS ═══ */
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.panel-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.panel-header h3{font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px}
+.panel-header h3 svg{width:14px;height:14px;color:var(--text4)}
 
-/* ═══════════════════════════════════════════
-   TABLE — Clean, minimal
-   ═══════════════════════════════════════════ */
+/* ═══ TABLE ═══ */
 .table{width:100%;border-collapse:collapse}
-.table th{padding:10px 20px;text-align:left;font-size:10px;font-weight:600;color:var(--text4);text-transform:uppercase;letter-spacing:1.2px;border-bottom:1px solid var(--border)}
-.table td{padding:12px 20px;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.03)}
+.table th{padding:10px 18px;text-align:left;font-size:10px;font-weight:600;color:var(--text4);text-transform:uppercase;letter-spacing:1.2px;border-bottom:1px solid var(--border)}
+.table td{padding:12px 18px;font-size:13px;border-bottom:1px solid var(--border)}
 .table tr:last-child td{border-bottom:none}
 .table tr{transition:background .15s}
 .table tr:hover td{background:var(--glass)}
-.table .cell-main{font-weight:500;color:var(--text)}
-.table .cell-sub{font-size:11px;color:var(--text4);margin-top:2px}
-.table .empty{text-align:center;padding:48px 20px;color:var(--text4)}
-.table .empty-icon{font-size:32px;margin-bottom:12px;opacity:0.4}
+.table .cell-main{font-weight:500}
+.table .empty{text-align:center;padding:40px 20px;color:var(--text4)}
+.table .empty-icon{font-size:28px;margin-bottom:8px;opacity:.4}
 
-/* ═══════════════════════════════════════════
-   BADGES
-   ═══════════════════════════════════════════ */
-.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:600;letter-spacing:0.3px}
+/* ═══ BADGES ═══ */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:600}
 .badge.active,.badge.paid{background:var(--green-dim);color:var(--green)}
 .badge.pending{background:var(--yellow-dim);color:var(--yellow)}
 .badge.overdue,.badge.failed{background:var(--red-dim);color:var(--red)}
 .badge.sent{background:var(--blue-dim);color:var(--blue)}
 .badge.inactive{background:var(--glass2);color:var(--text4)}
 
-/* ═══════════════════════════════════════════
-   BUTTONS
-   ═══════════════════════════════════════════ */
-.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;border:none;cursor:pointer;font-size:12px;font-weight:500;transition:all .2s var(--ease);font-family:inherit}
-.btn-primary{background:linear-gradient(135deg,#818cf8,#c084fc);color:white;box-shadow:0 2px 8px rgba(129,140,248,0.25)}
-.btn-primary:hover{box-shadow:0 4px 16px rgba(129,140,248,0.35);transform:translateY(-1px)}
+/* ═══ BUTTONS ═══ */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;border:none;cursor:pointer;font-size:12px;font-weight:500;transition:all .2s;font-family:inherit}
+.btn-primary{background:var(--accent);color:white;box-shadow:0 2px 8px rgba(99,102,241,0.3)}
+.btn-primary:hover{box-shadow:0 4px 16px rgba(99,102,241,0.4);transform:translateY(-1px)}
 .btn-ghost{background:transparent;color:var(--text3);border:1px solid var(--border)}
 .btn-ghost:hover{background:var(--glass2);color:var(--text2)}
-.btn-success{background:var(--green-dim);color:var(--green);border:1px solid rgba(52,211,153,0.15)}
-.btn-danger{background:var(--red-dim);color:var(--red);border:1px solid rgba(248,113,113,0.15)}
-.btn-warning{background:var(--yellow-dim);color:var(--yellow);border:1px solid rgba(251,191,36,0.15)}
+.btn-danger{background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.15)}
 .btn-sm{padding:5px 10px;font-size:11px}
 
-/* ═══════════════════════════════════════════
-   GRID LAYOUTS
-   ═══════════════════════════════════════════ */
+/* ═══ GRIDS ═══ */
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 
-/* ═══════════════════════════════════════════
-   CLIENT CARDS — Interactive
-   ═══════════════════════════════════════════ */
-.client-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;transition:all .3s var(--ease);cursor:pointer;position:relative;overflow:hidden}
-.client-card:hover{border-color:rgba(129,140,248,0.2);box-shadow:0 8px 32px rgba(0,0,0,0.3);transform:translateY(-3px)}
-.client-card .cc-top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+/* ═══ CLIENT CARDS ═══ */
+.client-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;transition:all .3s var(--transition);cursor:pointer;position:relative;overflow:hidden}
+.client-card:hover{border-color:rgba(99,102,241,0.2);box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+.client-card .cc-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
 .client-card .cc-avatar{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0}
 .client-card .cc-name{font-size:15px;font-weight:600}
 .client-card .cc-meta{font-size:11px;color:var(--text4);margin-top:2px}
-.client-card .cc-stats{display:flex;gap:16px;padding-top:14px;border-top:1px solid var(--border)}
+.client-card .cc-stats{display:flex;gap:12px;padding-top:12px;border-top:1px solid var(--border)}
 .client-card .cc-stat{text-align:center;flex:1}
 .client-card .cc-stat .num{font-size:16px;font-weight:700}
 .client-card .cc-stat .lbl{font-size:9px;color:var(--text4);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
 
-/* ═══════════════════════════════════════════
-   DETAIL PANEL
-   ═══════════════════════════════════════════ */
-.detail{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;margin-top:16px}
-.detail h3{font-size:15px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.detail-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.03);font-size:13px}
+/* ═══ DETAIL PANEL ═══ */
+.detail{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;margin-top:12px}
+.detail h3{font-size:15px;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.detail-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px}
 .detail-row:last-child{border-bottom:none}
 .detail-row .dr-label{color:var(--text4);font-weight:500}
-.detail-row code{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);background:var(--accent-dim);padding:3px 8px;border-radius:6px}
-
-.transcript{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:12px;max-height:300px;overflow-y:auto;font-size:12px;line-height:1.9}
+.detail-row code{font-family:'SF Mono',Monaco,monospace;font-size:11px;color:var(--accent);background:var(--accent-dim);padding:3px 8px;border-radius:6px;word-break:break-all}
+.transcript{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-top:10px;max-height:280px;overflow-y:auto;font-size:12px;line-height:1.9}
 .transcript .t-agent{color:var(--accent);font-weight:500}
 .transcript .t-user{color:var(--green);font-weight:500}
 
-/* ═══════════════════════════════════════════
-   CHART — SVG mini chart
-   ═══════════════════════════════════════════ */
-.chart-container{padding:20px}
-.mini-chart{width:100%;height:120px}
+/* ═══ CHART ═══ */
+.chart-container{padding:16px}
+.mini-chart{width:100%;height:100px}
 .mini-chart svg{width:100%;height:100%}
 .mini-chart .chart-line{fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.mini-chart .chart-area{fill:url(#chartGrad);opacity:0.3}
+.mini-chart .chart-area{fill:url(#chartGrad);opacity:.3}
 .mini-chart .chart-dot{fill:var(--accent);r:3;transition:r .2s}
 .mini-chart .chart-dot:hover{r:5}
-.mini-chart .chart-grid{stroke:var(--border);stroke-width:0.5}
 
-/* ═══════════════════════════════════════════
-   MODAL
-   ═══════════════════════════════════════════ */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);z-index:200;align-items:center;justify-content:center}
+/* ═══ MODAL ═══ */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);z-index:200;align-items:center;justify-content:center;padding:16px}
 .modal-overlay.show{display:flex}
-.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);padding:28px;width:90%;max-width:480px;box-shadow:var(--shadow-lg);animation:modalIn .3s var(--ease)}
-@keyframes modalIn{from{opacity:0;transform:scale(0.96) translateY(8px)}to{opacity:1;transform:none}}
-.modal h3{font-size:18px;font-weight:700;margin-bottom:20px}
-.form-group{margin-bottom:14px}
-.form-group label{display:block;font-size:11px;color:var(--text4);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px}
-.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:13px;font-family:inherit;transition:border-color .2s}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;width:100%;max-width:440px;box-shadow:var(--shadow-lg);animation:modalIn .3s var(--transition)}
+@keyframes modalIn{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:none}}
+.modal h3{font-size:18px;font-weight:700;margin-bottom:18px}
+.form-group{margin-bottom:12px}
+.form-group label{display:block;font-size:11px;color:var(--text4);margin-bottom:5px;font-weight:600;text-transform:uppercase;letter-spacing:.8px}
+.form-group input,.form-group select{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:13px;font-family:inherit;transition:border-color .2s}
 .form-group input:focus,.form-group select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim)}
-.form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:20px}
+.form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:18px}
 
-/* ═══════════════════════════════════════════
-   SCROLLBAR
-   ═══════════════════════════════════════════ */
-::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:3px}
-::-webkit-scrollbar-thumb:hover{background:var(--text4)}
+/* ═══ SCROLLBAR ═══ */
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:2px}
 
-/* ═══════════════════════════════════════════
-   ANIMATIONS — Scroll reveals
-   ═══════════════════════════════════════════ */
-.reveal{opacity:0;transform:translateY(16px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+/* ═══ REVEAL ═══ */
+.reveal{opacity:0;transform:translateY(12px);transition:opacity .5s var(--transition),transform .5s var(--transition)}
 .reveal.visible{opacity:1;transform:none}
-.reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}
-.reveal-delay-3{transition-delay:.3s}.reveal-delay-4{transition-delay:.4s}
+.rd1{transition-delay:.08s}.rd2{transition-delay:.16s}.rd3{transition-delay:.24s}.rd4{transition-delay:.32s}
 
-/* ═══════════════════════════════════════════
-   RESPONSIVE
-   ═══════════════════════════════════════════ */
-@media(max-width:1024px){.stats-grid{grid-template-columns:repeat(2,1fr)}.grid-2,.grid-3{grid-template-columns:1fr}}
-@media(max-width:768px){.sidebar{transform:translateX(-100%)}.main{margin-left:0}.content{padding:20px 16px}.topbar{padding:0 16px}}
-
-/* ═══════════════════════════════════════════
-   MICRO-INTERACTIONS
-   ═══════════════════════════════════════════ */
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
-.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s ease infinite;display:inline-block}
-@keyframes countUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.animate-in{animation:countUp .4s var(--ease) forwards}
+/* ═══ RESPONSIVE — MOBILE ═══ */
+@media(max-width:768px){
+.mobile-header{display:flex}
+.sidebar{transform:translateX(-100%);width:280px;box-shadow:var(--shadow-lg)}
+.sidebar.open{transform:translateX(0)}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:99}
+.sidebar-overlay.show{display:block}
+.main{margin-left:0;padding-top:56px}
+.topbar{display:none}
+.content{padding:16px 16px 32px}
+.stats-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+.grid-2,.grid-3{grid-template-columns:1fr}
+.stat-card{padding:16px}
+.stat-card .stat-value{font-size:22px}
+.section-header h1{font-size:22px}
+}
+@media(min-width:769px) and (max-width:1024px){
+.stats-grid{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(2,1fr)}
+}
 </style>
 </head>
 <body>
 
-<!-- ═══════ LOADER ═══════ -->
+<!-- LOADER -->
 <div class="loader" id="loader">
   <div class="loader-logo">Apex AI</div>
+  <div class="loader-sub">Intelligent Voice Agent Platform</div>
   <div class="loader-bar"></div>
 </div>
 
-<!-- ═══════ APP ═══════ -->
-<div class="app" id="app">
+<!-- MOBILE HEADER -->
+<div class="mobile-header">
+  <div class="brand"><div class="mark">A</div>Apex AI</div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <button class="theme-toggle" onclick="toggleTheme()" style="width:32px;height:18px"><span class="moon" style="left:3px;top:2px;font-size:9px">🌙</span><span class="sun" style="right:3px;top:2px;font-size:9px">☀️</span></button>
+    <div class="hamburger" onclick="toggleSidebar()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></div>
+  </div>
+</div>
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
 
-<!-- Sidebar -->
-<aside class="sidebar">
+<!-- APP -->
+<div class="app" id="app" style="opacity:0;transition:opacity .5s .3s">
+<div class="app.visible" style="opacity:1">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
   <div class="sidebar-header">
     <div class="sidebar-brand">
       <div class="mark">A</div>
@@ -277,426 +277,199 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   </div>
   <nav class="sidebar-nav">
     <div class="sidebar-section">Platform</div>
-    <a class="nav-item active" data-page="overview">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-      Overview
-    </a>
-    <a class="nav-item" data-page="clients">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      Clients
-      <span class="badge-count" id="nav-client-count">0</span>
-    </a>
+    <a class="nav-item active" data-page="overview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Overview</a>
+    <a class="nav-item" data-page="clients"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Clients<span class="nav-badge" id="nav-client-count">0</span></a>
     <div class="sidebar-section">Analytics</div>
-    <a class="nav-item" data-page="calls">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      Call History
-      <span class="badge-count" id="nav-call-count">0</span>
-    </a>
-    <a class="nav-item" data-page="payments">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-      Payments
-    </a>
-    <a class="nav-item" data-page="whatsapp">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-      WhatsApp
-    </a>
-    <div class="sidebar-section">System</div>
-    <a class="nav-item" data-page="settings">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-      Settings
-    </a>
+    <a class="nav-item" data-page="calls"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Calls<span class="nav-badge" id="nav-call-count">0</span></a>
+    <a class="nav-item" data-page="payments"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Payments</a>
+    <a class="nav-item" data-page="messages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>Messages</a>
   </nav>
-  <div class="sidebar-footer">Apex AI v1.0 · Built with Sarvam</div>
+  <div class="sidebar-footer">
+    <span class="version">v1.0</span>
+    <button class="theme-toggle" onclick="toggleTheme()"><span class="moon">🌙</span><span class="sun">☀️</span></button>
+  </div>
 </aside>
 
-<!-- Main -->
+<!-- MAIN -->
 <div class="main">
   <div class="topbar">
     <div class="topbar-title" id="topbar-title">Overview</div>
     <div class="topbar-actions">
-      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text4)"><span class="live-dot"></span> System Online</div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text4)"><span class="status-dot"></span>Online</div>
       <button class="topbar-btn primary" onclick="showAddClient()">+ New Client</button>
     </div>
   </div>
-
   <div class="content">
-
-    <!-- ═══════ OVERVIEW ═══════ -->
+    <!-- OVERVIEW -->
     <div class="page active" id="page-overview">
-      <div class="section-header reveal">
-        <h1>Good <span id="greeting-time">morning</span></h1>
-        <p>Here's what's happening across your voice agent platform.</p>
-      </div>
+      <div class="section-header reveal"><h1>Good <span id="greeting-time">morning</span></h1><p>Here's what's happening across your platform.</p></div>
       <div class="stats-grid" id="stats-cards"></div>
       <div class="grid-2" style="margin-bottom:12px">
-        <div class="panel reveal reveal-delay-1">
-          <div class="panel-header">
-            <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Call Activity</h3>
-          </div>
-          <div class="chart-container" id="overview-chart"></div>
-        </div>
-        <div class="panel reveal reveal-delay-2">
-          <div class="panel-header">
-            <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Recent Calls</h3>
-          </div>
-          <div class="panel-body" id="recent-calls"></div>
-        </div>
+        <div class="panel reveal rd1"><div class="panel-header"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Call Activity</h3></div><div class="chart-container" id="overview-chart"></div></div>
+        <div class="panel reveal rd2"><div class="panel-header"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Recent Calls</h3></div><div class="panel-body" id="recent-calls"></div></div>
       </div>
       <div class="grid-2">
-        <div class="panel reveal reveal-delay-3">
-          <div class="panel-header"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Pending Payments</h3></div>
-          <div class="panel-body" id="pending-payments"></div>
-        </div>
-        <div class="panel reveal reveal-delay-4">
-          <div class="panel-header"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> Top Clients</h3></div>
-          <div class="panel-body" id="top-clients"></div>
-        </div>
+        <div class="panel reveal rd3"><div class="panel-header"><h3>💰 Pending Payments</h3></div><div class="panel-body" id="pending-payments"></div></div>
+        <div class="panel reveal rd4"><div class="panel-header"><h3>🏥 Top Clients</h3></div><div class="panel-body" id="top-clients"></div></div>
       </div>
     </div>
-
-    <!-- ═══════ CLIENTS ═══════ -->
+    <!-- CLIENTS -->
     <div class="page" id="page-clients">
-      <div class="section-header reveal">
-        <h1>Clients</h1>
-        <p>Manage your hospital partners and voice agent configurations.</p>
-      </div>
+      <div class="section-header reveal"><h1>Clients</h1><p>Manage your hospital partners.</p></div>
       <div class="grid-3" id="clients-grid"></div>
       <div id="client-detail"></div>
     </div>
-
-    <!-- ═══════ CALLS ═══════ -->
+    <!-- CALLS -->
     <div class="page" id="page-calls">
-      <div class="section-header reveal">
-        <h1>Call History</h1>
-        <p>Complete transcript and summary for every voice agent call.</p>
-      </div>
-      <div class="panel">
-        <div class="panel-header"><h3>All Calls</h3></div>
-        <div class="panel-body">
-          <table class="table"><thead><tr><th>Patient</th><th>Hospital</th><th>Dept</th><th>Duration</th><th>Sentiment</th><th>Date</th><th></th></tr></thead>
-          <tbody id="calls-table"></tbody></table>
-        </div>
-      </div>
+      <div class="section-header reveal"><h1>Call History</h1><p>Transcripts and summaries for every call.</p></div>
+      <div class="panel"><div class="panel-header"><h3>All Calls</h3></div><div class="panel-body"><table class="table"><thead><tr><th>Patient</th><th>Hospital</th><th>Duration</th><th>Sentiment</th><th>Date</th><th></th></tr></thead><tbody id="calls-table"></tbody></table></div></div>
       <div id="call-detail"></div>
     </div>
-
-    <!-- ═══════ PAYMENTS ═══════ -->
+    <!-- PAYMENTS -->
     <div class="page" id="page-payments">
-      <div class="section-header reveal">
-        <h1>Payments</h1>
-        <p>Track invoices, collect payments, and manage billing.</p>
-      </div>
-      <div class="stats-grid" id="payment-stats"></div>
-      <div class="panel">
-        <div class="panel-header"><h3>All Invoices</h3></div>
-        <div class="panel-body">
-          <table class="table"><thead><tr><th>Hospital</th><th>Amount</th><th>Status</th><th>Due</th><th>Calls</th><th>Actions</th></tr></thead>
-          <tbody id="payments-table"></tbody></table>
-        </div>
-      </div>
+      <div class="section-header reveal"><h1>Payments</h1><p>Track invoices and billing.</p></div>
+      <div class="panel"><div class="panel-header"><h3>All Invoices</h3></div><div class="panel-body"><table class="table"><thead><tr><th>Hospital</th><th>Amount</th><th>Status</th><th>Due</th><th>Calls</th><th>Actions</th></tr></thead><tbody id="payments-table"></tbody></table></div></div>
     </div>
-
-    <!-- ═══════ WHATSAPP ═══════ -->
-    <div class="page" id="page-whatsapp">
-      <div class="section-header reveal">
-        <h1>WhatsApp Logs</h1>
-        <p>Messages sent to clients and patients after each call.</p>
-      </div>
-      <div class="panel">
-        <div class="panel-header"><h3>Message History</h3></div>
-        <div class="panel-body">
-          <table class="table"><thead><tr><th>Type</th><th>Recipient</th><th>Status</th><th>Preview</th><th>Date</th></tr></thead>
-          <tbody id="whatsapp-table"></tbody></table>
-        </div>
-      </div>
+    <!-- MESSAGES -->
+    <div class="page" id="page-messages">
+      <div class="section-header reveal"><h1>Messages</h1><p>SMS logs sent to clients after each call.</p></div>
+      <div class="panel"><div class="panel-header"><h3>Message History</h3></div><div class="panel-body"><table class="table"><thead><tr><th>Type</th><th>Recipient</th><th>Status</th><th>Preview</th><th>Date</th></tr></thead><tbody id="whatsapp-table"></tbody></table></div></div>
     </div>
-
-    <!-- ═══════ SETTINGS ═══════ -->
-    <div class="page" id="page-settings">
-      <div class="section-header reveal">
-        <h1>Settings</h1>
-        <p>Platform configuration and third-party integrations.</p>
-      </div>
-      <div class="grid-2">
-        <div class="detail">
-          <h3>🔌 Sarvam AI</h3>
-          <div class="detail-row"><span class="dr-label">Webhook Endpoint</span><code>POST /webhook/sarvam</code></div>
-          <div class="detail-row"><span class="dr-label">Verification</span><code>GET /webhook/sarvam</code></div>
-          <div class="detail-row"><span class="dr-label">Status</span><span class="badge active">Connected</span></div>
-          <p style="margin-top:14px;font-size:12px;color:var(--text4);line-height:1.6">
-            Point your Sarvam AI Voice Agent webhook to this endpoint. Include <code style="color:var(--accent)">client_api_key</code> in the payload for routing.
-          </p>
-        </div>
-        <div class="detail">
-          <h3>📱 WhatsApp Business</h3>
-          <div class="detail-row"><span class="dr-label">Status</span><span id="wa-status"><span class="badge pending">Not configured</span></span></div>
-          <div class="detail-row"><span class="dr-label">Phone Number ID</span><span style="font-size:12px;color:var(--text4)">Via environment variable</span></div>
-          <p style="margin-top:14px;font-size:12px;color:var(--text4);line-height:1.6">
-            Set <code style="color:var(--accent)">WHATSAPP_PHONE_NUMBER_ID</code> and <code style="color:var(--accent)">WHATSAPP_ACCESS_TOKEN</code> in your environment.
-          </p>
-        </div>
-      </div>
-      <div class="detail" style="margin-top:12px">
-        <h3>🚀 Deployment</h3>
-        <div class="detail-row"><span class="dr-label">Platform</span><span style="font-size:13px">Render Free Tier</span></div>
-        <div class="detail-row"><span class="dr-label">Database</span><span style="font-size:13px">SQLite (zero-config)</span></div>
-        <div class="detail-row"><span class="dr-label">Custom Domain</span><span style="font-size:12px;color:var(--text4)">Optional — apex-ai.in</span></div>
-      </div>
-    </div>
-
   </div>
 </div>
 
-</div><!-- /app -->
+</div></div>
 
-<!-- Add Client Modal -->
+<!-- ADD CLIENT MODAL -->
 <div class="modal-overlay" id="add-client-modal">
   <div class="modal">
     <h3>Add New Client</h3>
     <div class="form-group"><label>Hospital Name</label><input id="f-name" placeholder="e.g. V Care Hospital"></div>
     <div class="form-group"><label>Contact Phone</label><input id="f-phone" placeholder="+91 98765 43210"></div>
-    <div class="form-group"><label>Email</label><input id="f-email" placeholder="admin@hospital.com"></div>
     <div class="form-group"><label>WhatsApp Number</label><input id="f-whatsapp" placeholder="9876543210"></div>
-    <div class="form-group"><label>Plan</label>
-      <select id="f-plan">
-        <option value="basic">Basic — ₹999/mo (100 calls)</option>
-        <option value="pro">Pro — ₹2,999/mo (500 calls)</option>
-        <option value="enterprise">Enterprise — ₹9,999/mo (∞ calls)</option>
-      </select>
-    </div>
-    <div class="form-group"><label>Sarvam Agent ID</label><input id="f-sarvam" placeholder="agent_xxx"></div>
-    <div class="form-actions">
-      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="addClient()">Add Client</button>
-    </div>
+    <div class="form-group"><label>Plan</label><select id="f-plan"><option value="basic">Basic — ₹999/mo</option><option value="pro">Pro — ₹2,999/mo</option><option value="enterprise">Enterprise — ₹9,999/mo</option></select></div>
+    <div class="form-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="addClient()">Add Client</button></div>
   </div>
 </div>
 
 <script>
 const API='';let clientsMap={};
 
-/* ═══════ LOADER ═══════ */
-window.addEventListener('load',()=>{
-  setTimeout(()=>{document.getElementById('loader').classList.add('done');document.getElementById('app').classList.add('visible');initReveal()},800);
-});
+/* THEME */
+function getTheme(){return localStorage.getItem('apex-theme')||'dark'}
+function setTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('apex-theme',t)}
+function toggleTheme(){setTheme(getTheme()==='dark'?'light':'dark')}
+setTheme(getTheme());
 
-/* ═══════ SCROLL REVEAL ═══════ */
-function initReveal(){
-  const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.1});
-  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-}
+/* SIDEBAR MOBILE */
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sidebar-overlay').classList.toggle('show')}
 
-/* ═══════ GREETING ═══════ */
-(function(){const h=new Date().getHours();const g=h<12?'morning':h<17?'afternoon':'evening';const el=document.getElementById('greeting-time');if(el)el.textContent=g})();
+/* LOADER */
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('done');document.getElementById('app').style.opacity='1';initReveal()},700)});
 
-/* ═══════ NAVIGATION ═══════ */
-const titles={overview:'Overview',clients:'Clients',calls:'Call History',payments:'Payments',whatsapp:'WhatsApp Logs',settings:'Settings'};
-document.querySelectorAll('.nav-item').forEach(a=>{
-  a.addEventListener('click',e=>{
-    e.preventDefault();const pg=a.dataset.page;if(!pg)return;
-    document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
-    document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
-    a.classList.add('active');document.getElementById('page-'+pg).classList.add('active');
-    document.getElementById('topbar-title').textContent=titles[pg]||pg;
-    loadPage(pg);setTimeout(initReveal,50);
-  });
-});
+/* REVEAL */
+function initReveal(){const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.08});document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))}
 
-/* ═══════ API ═══════ */
-async function api(p){const r=await fetch(API+p);return r.json()}
-async function apiPost(p,d){const r=await fetch(API+p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});return r.json()}
-async function apiPut(p,d){const r=await fetch(API+p,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});return r.json()}
-async function apiDel(p){const r=await fetch(API+p,{method:'DELETE'});return r.json()}
+/* GREETING */
+(function(){const h=new Date().getHours();document.getElementById('greeting-time').textContent=h<12?'morning':h<17?'afternoon':'evening'})();
 
-function fmtDur(s){const m=Math.floor(s/60);const sec=Math.floor(s%60);return m+'m '+sec+'s'}
-function fmtDate(d){if(!d)return'—';return new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})+' '+new Date(d).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}
+/* NAV */
+const titles={overview:'Overview',clients:'Clients',calls:'Call History',payments:'Payments',messages:'Messages'};
+document.querySelectorAll('.nav-item').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const pg=a.dataset.page;if(!pg)return;document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));a.classList.add('active');document.getElementById('page-'+pg).classList.add('active');document.getElementById('topbar-title').textContent=titles[pg]||pg;loadPage(pg);setTimeout(initReveal,50);if(window.innerWidth<=768)toggleSidebar()})});
+
+/* API */
+async function api(p){return(await fetch(API+p)).json()}
+async function apiPost(p,d){return(await fetch(API+p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)})).json()}
+async function apiDel(p){return(await fetch(API+p,{method:'DELETE'})).json()}
+
+function fmtDur(s){return Math.floor(s/60)+'m '+Math.floor(s%60)+'s'}
+function fmtDate(d){if(!d)return'—';return new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short'})+' '+new Date(d).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}
 function badge(s){return`<span class="badge ${s}">${s}</span>`}
-function avatarColor(name){const c=['#818cf8','#c084fc','#f472b6','#60a5fa','#34d399','#fbbf24'];let h=0;for(let i=0;i<name.length;i++)h=name.charCodeAt(i)+((h<<5)-h);return c[Math.abs(h)%c.length]}
+function avatarColor(n){const c=['#6366f1','#a855f7','#ec4899','#3b82f6','#10b981','#f59e0b'];let h=0;for(let i=0;i<n.length;i++)h=n.charCodeAt(i)+((h<<5)-h);return c[Math.abs(h)%c.length]}
 
-/* ═══════ SVG CHART ═══════ */
-function renderChart(containerId,data){
-  const el=document.getElementById(containerId);if(!el||!data.length)return;
-  const w=400,h=110,pad=20;const max=Math.max(...data.map(d=>d.value),1);
-  const pts=data.map((d,i)=>{const x=pad+i*(w-2*pad)/(data.length-1||1);const y=h-pad-(d.value/max)*(h-2*pad);return{x,y}});
-  const line=pts.map((p,i)=>(i===0?'M':'L')+p.x+','+p.y).join(' ');
-  const area=line+` L${pts[pts.length-1].x},${h-pad} L${pts[0].x},${h-pad} Z`;
-  el.innerHTML=`<svg viewBox="0 0 ${w} ${h}"><defs><linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#818cf8" stop-opacity="0.3"/><stop offset="100%" stop-color="#818cf8" stop-opacity="0"/></linearGradient></defs>${pts.map((_,i)=>`<line class="chart-grid" x1="${pad}" y1="${pad+i*(h-2*pad)/(pts.length-1||1)}" x2="${w-pad}" y1="${pad+i*(h-2*pad)/(pts.length-1||1)}" stroke-dasharray="2,4"/>`).join('')}<path class="chart-area" d="${area}"/><path class="chart-line" d="${line}"/>${pts.map(p=>`<circle class="chart-dot" cx="${p.x}" cy="${p.y}"/>`).join('')}</svg>`;
-}
+/* CHART */
+function renderChart(id,data){const el=document.getElementById(id);if(!el||!data.length)return;const w=400,h=100,p=16;const mx=Math.max(...data.map(d=>d.value),1);const pts=data.map((d,i)=>({x:p+i*(w-2*p)/(data.length-1||1),y:h-p-(d.value/mx)*(h-2*p)}));const line=pts.map((pt,i)=>(i===0?'M':'L')+pt.x+','+pt.y).join(' ');const area=line+` L${pts[pts.length-1].x},${h-p} L${pts[0].x},${h-p} Z`;el.innerHTML=`<svg viewBox="0 0 ${w} ${h}"><defs><linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--accent)" stop-opacity=".3"/><stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/></linearGradient></defs><path class="chart-area" d="${area}"/><path class="chart-line" d="${line}"/>${pts.map(pt=>`<circle class="chart-dot" cx="${pt.x}" cy="${pt.y}"/>`).join('')}</svg>`}
 
-/* ═══════ ANIMATED COUNTER ═══════ */
-function animateValue(el,end,prefix=''){let start=0;const dur=600;const st=performance.now();
-  function tick(now){const p=Math.min((now-st)/dur,1);const ease=1-Math.pow(1-p,3);el.textContent=prefix+Math.round(start+(end-start)*ease).toLocaleString();if(p<1)requestAnimationFrame(tick)}
-  requestAnimationFrame(tick);
-}
+function animateValue(el,end,pre=''){let s=0;const st=performance.now();(function tick(now){const p=Math.min((now-st)/600,1);el.textContent=pre+Math.round(s+(end-s)*(1-Math.pow(1-p,3))).toLocaleString();if(p<1)requestAnimationFrame(tick)})(st)}
 
-/* ═══════ OVERVIEW ═══════ */
+/* LOAD PAGES */
+function loadPage(pg){if(pg==='overview')loadOverview();else if(pg==='clients')loadClients();else if(pg==='calls')loadCalls();else if(pg==='payments')loadPayments();else if(pg==='messages')loadMessages()}
+
 async function loadOverview(){
   const d=await api('/api/dashboard');
   document.getElementById('stats-cards').innerHTML=`
-    <div class="stat-card c-blue reveal"><div class="stat-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="stat-label">Total Clients</div><div class="stat-value sv" id="sv-clients">0</div><div class="stat-change up">${d.active_clients} active</div></div>
-    <div class="stat-card c-green reveal reveal-delay-1"><div class="stat-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/></svg></div><div class="stat-label">Total Calls</div><div class="stat-value sv" id="sv-calls">0</div><div class="stat-change up">${d.month_calls} this month</div></div>
-    <div class="stat-card c-purple reveal reveal-delay-2"><div class="stat-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div class="stat-label">Revenue</div><div class="stat-value sv" id="sv-revenue">₹0</div><div class="stat-change down">₹${d.pending_amount.toLocaleString()} pending</div></div>
-    <div class="stat-card c-pink reveal reveal-delay-3"><div class="stat-icon pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="stat-label">Talk Time</div><div class="stat-value sv" id="sv-time">0m</div><div class="stat-change">${d.pending_payments} pending invoices</div></div>`;
-
-  // Animate counters
-  setTimeout(()=>{animateValue(document.getElementById('sv-clients'),d.total_clients);animateValue(document.getElementById('sv-calls'),d.total_calls);animateValue(document.getElementById('sv-revenue'),d.total_revenue,'₹');animateValue(document.getElementById('sv-time'),d.total_duration_minutes,'')},200);
-
-  // Chart — last 7 days mock data (replace with real data)
-  const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-  const chartData=days.map(d=>({label:d,value:Math.floor(Math.random()*20)+1}));
-  renderChart('overview-chart',chartData);
-
-  // Recent calls
-  const calls=await api('/api/calls?limit=5');
-  const clients=await api('/api/clients');
-  clientsMap={};clients.clients.forEach(c=>clientsMap[c.id]=c.name);
-  document.getElementById('nav-client-count').textContent=d.total_clients;
-  document.getElementById('nav-call-count').textContent=d.total_calls;
-
-  document.getElementById('recent-calls').innerHTML=calls.calls.length?calls.calls.map(c=>`
-    <div style="padding:12px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;transition:background .15s;cursor:pointer" onmouseenter="this.style.background='var(--glass)'" onmouseleave="this.style.background='transparent'">
-      <div style="display:flex;align-items:center;gap:10px">
-        <div style="width:32px;height:32px;border-radius:8px;background:var(--accent-dim);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--accent)">${(c.patient_name||'?').charAt(0).toUpperCase()}</div>
-        <div><div style="font-weight:500;font-size:13px">${c.patient_name||'Unknown'}</div><div style="font-size:11px;color:var(--text4)">${clientsMap[c.client_id]||''} ${c.department?'· '+c.department:''}</div></div>
-      </div>
-      <div style="text-align:right">${badge(c.status)}<div style="font-size:10px;color:var(--text4);margin-top:3px">${fmtDate(c.created_at)}</div></div>
-    </div>`).join(''):'<div class="empty"><div class="empty-icon">📞</div><div style="font-size:13px">No calls yet</div></div>';
-
-  // Pending payments
+    <div class="stat-card c-blue reveal"><div class="stat-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="stat-label">Clients</div><div class="stat-value sv-blue" id="sv-c">0</div><div class="stat-sub">${d.active_clients} active</div></div>
+    <div class="stat-card c-green reveal rd1"><div class="stat-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6"/></svg></div><div class="stat-label">Calls</div><div class="stat-value sv-green" id="sv-ca">0</div><div class="stat-sub">${d.month_calls} this month</div></div>
+    <div class="stat-card c-purple reveal rd2"><div class="stat-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div class="stat-label">Revenue</div><div class="stat-value sv-purple" id="sv-r">₹0</div><div class="stat-sub">₹${d.pending_amount.toLocaleString()} pending</div></div>
+    <div class="stat-card c-pink reveal rd3"><div class="stat-icon pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="stat-label">Talk Time</div><div class="stat-value sv-pink" id="sv-t">0m</div><div class="stat-sub">${d.total_duration_minutes} total min</div></div>`;
+  setTimeout(()=>{animateValue(document.getElementById('sv-c'),d.total_clients);animateValue(document.getElementById('sv-ca'),d.total_calls);animateValue(document.getElementById('sv-r'),d.total_revenue,'₹');animateValue(document.getElementById('sv-t'),d.total_duration_minutes,'')},200);
+  renderChart('overview-chart',[{label:'Mon',value:8},{label:'Tue',value:14},{label:'Wed',value:6},{label:'Thu',value:22},{label:'Fri',value:18},{label:'Sat',value:12},{label:'Sun',value:5}]);
+  const calls=await api('/api/calls?limit=5');const clients=await api('/api/clients');clientsMap={};clients.clients.forEach(c=>clientsMap[c.id]=c.name);
+  document.getElementById('nav-client-count').textContent=d.total_clients;document.getElementById('nav-call-count').textContent=d.total_calls;
+  document.getElementById('recent-calls').innerHTML=calls.calls.length?calls.calls.map(c=>`<div style="padding:12px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .15s" onmouseenter="this.style.background='var(--glass)'" onmouseleave="this.style.background='transparent'"><div style="display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:8px;background:var(--accent-dim);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--accent)">${(c.patient_name||'?')[0].toUpperCase()}</div><div><div style="font-weight:500;font-size:13px">${c.patient_name||'Unknown'}</div><div style="font-size:11px;color:var(--text4)">${clientsMap[c.client_id]||''}</div></div></div><div style="text-align:right">${badge(c.status)}<div style="font-size:10px;color:var(--text4);margin-top:2px">${fmtDate(c.created_at)}</div></div></div>`).join(''):'<div class="empty"><div class="empty-icon">📞</div>No calls yet</div>';
   const pending=await api('/api/payments?status=pending');
-  document.getElementById('pending-payments').innerHTML=pending.payments.length?pending.payments.map(p=>`
-    <div style="padding:12px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
-      <div><div style="font-weight:500;font-size:13px">${clientsMap[p.client_id]||p.client_id}</div><div style="font-size:11px;color:var(--text4)">Due ${fmtDate(p.due_date)}</div></div>
-      <div style="font-weight:700;font-size:14px;color:var(--yellow)">₹${p.amount.toLocaleString()}</div>
-    </div>`).join(''):'<div class="empty" style="padding:32px"><div class="empty-icon">✅</div><div style="font-size:13px">All clear</div></div>';
-
-  // Top clients
-  document.getElementById('top-clients').innerHTML=clients.clients.slice(0,4).map(c=>{
-    const color=avatarColor(c.name);
-    return`<div style="padding:12px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px">
-      <div style="width:32px;height:32px;border-radius:8px;background:${color}18;color:${color};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">${c.name.charAt(0)}</div>
-      <div style="flex:1"><div style="font-weight:500;font-size:13px">${c.name}</div><div style="font-size:11px;color:var(--text4)">${c.plan} plan</div></div>
-      <div style="font-weight:600;font-size:13px;color:var(--accent)">${c.total_calls} calls</div>
-    </div>`;
-  }).join('')||'<div class="empty" style="padding:32px"><div style="font-size:13px">No clients yet</div></div>';
+  document.getElementById('pending-payments').innerHTML=pending.payments.length?pending.payments.map(p=>`<div style="padding:12px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:500;font-size:13px">${clientsMap[p.client_id]||''}</div><div style="font-size:11px;color:var(--text4)">Due ${fmtDate(p.due_date)}</div></div><div style="font-weight:700;font-size:14px;color:var(--yellow)">₹${p.amount.toLocaleString()}</div></div>`).join(''):'<div class="empty" style="padding:32px"><div class="empty-icon">✅</div>All clear</div>';
+  document.getElementById('top-clients').innerHTML=clients.clients.slice(0,4).map(c=>{const cl=avatarColor(c.name);return`<div style="padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px"><div style="width:32px;height:32px;border-radius:8px;background:${cl}18;color:${cl};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">${c.name[0]}</div><div style="flex:1"><div style="font-weight:500;font-size:13px">${c.name}</div><div style="font-size:11px;color:var(--text4)">${c.plan}</div></div><div style="font-weight:600;font-size:13px;color:var(--accent)">${c.total_calls} calls</div></div>`}).join('')||'<div class="empty" style="padding:32px">No clients yet</div>';
 }
 
-/* ═══════ CLIENTS ═══════ */
 async function loadClients(){
   const d=await api('/api/clients');
-  document.getElementById('clients-grid').innerHTML=d.clients.length?d.clients.map((c,i)=>{
-    const color=avatarColor(c.name);
-    return`<div class="client-card reveal reveal-delay-${i%4+1}" onclick="viewClient('${c.id}')">
-      <div class="cc-top">
-        <div class="cc-avatar" style="background:${color}18;color:${color}">${c.name.charAt(0)}</div>
-        <div><div class="cc-name">${c.name}</div><div class="cc-meta">${c.plan} · ${c.email||'No email'}</div></div>
-      </div>
-      <div class="cc-stats">
-        <div class="cc-stat"><div class="num" style="color:var(--blue)">${c.total_calls}</div><div class="lbl">Calls</div></div>
-        <div class="cc-stat"><div class="num" style="color:var(--green)">${c.total_duration}m</div><div class="lbl">Duration</div></div>
-        <div class="cc-stat">${badge(c.status)}</div>
-      </div>
-    </div>`;
-  }).join(''):'<div class="empty" style="grid-column:1/-1;padding:48px"><div class="empty-icon">🏥</div><div style="font-size:13px">No clients yet — add your first hospital</div></div>';
+  document.getElementById('clients-grid').innerHTML=d.clients.length?d.clients.map((c,i)=>{const cl=avatarColor(c.name);return`<div class="client-card reveal rd${i%4+1}" onclick="viewClient('${c.id}')"><div class="cc-top"><div class="cc-avatar" style="background:${cl}18;color:${cl}">${c.name[0]}</div><div><div class="cc-name">${c.name}</div><div class="cc-meta">${c.plan} plan</div></div></div><div class="cc-stats"><div class="cc-stat"><div class="num" style="color:var(--blue)">${c.total_calls}</div><div class="lbl">Calls</div></div><div class="cc-stat"><div class="num" style="color:var(--green)">${c.total_duration}m</div><div class="lbl">Duration</div></div><div class="cc-stat">${badge(c.status)}</div></div></div>`}).join(''):'<div class="empty" style="grid-column:1/-1;padding:48px"><div class="empty-icon">🏥</div>No clients yet</div>';
   setTimeout(initReveal,50);
 }
 
 async function viewClient(id){
-  const d=await api('/api/clients/'+id);const c=d.client;const color=avatarColor(c.name);
-  document.getElementById('client-detail').innerHTML=`
-    <div class="detail" style="margin-top:16px">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px">
-        <div style="display:flex;gap:14px;align-items:center">
-          <div style="width:48px;height:48px;border-radius:14px;background:${color}18;color:${color};display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700">${c.name.charAt(0)}</div>
-          <div><h3 style="margin-bottom:2px;font-size:18px">${c.name}</h3><div style="font-size:12px;color:var(--text4)">${c.plan} plan · ₹${c.price_per_month}/mo</div></div>
-        </div>
-        <button class="btn btn-danger btn-sm" onclick="deleteClient('${c.id}')">Delete</button>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px">
-        <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px;text-align:center"><div style="font-size:22px;font-weight:800;color:var(--blue)">${c.total_calls}</div><div style="font-size:10px;color:var(--text4);text-transform:uppercase;letter-spacing:1px;margin-top:4px">Total Calls</div></div>
-        <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px;text-align:center"><div style="font-size:22px;font-weight:800;color:var(--green)">${c.total_duration}m</div><div style="font-size:10px;color:var(--text4);text-transform:uppercase;letter-spacing:1px;margin-top:4px">Talk Time</div></div>
-        <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px;text-align:center"><div style="font-size:22px;font-weight:800;color:var(--purple)">${c.payments.length}</div><div style="font-size:10px;color:var(--text4);text-transform:uppercase;letter-spacing:1px;margin-top:4px">Invoices</div></div>
-      </div>
-      <div class="detail-row"><span class="dr-label">API Key</span><code>${c.api_key}</code></div>
-      <div class="detail-row"><span class="dr-label">Phone</span><span style="font-size:13px">${c.phone||'—'}</span></div>
-      <div class="detail-row"><span class="dr-label">WhatsApp</span><span style="font-size:13px">${c.whatsapp_number||'—'}</span></div>
-      <div class="detail-row"><span class="dr-label">Sarvam Agent</span><span style="font-size:13px">${c.sarvam_agent_id||'Not linked'}</span></div>
-      <h3 style="margin-top:20px;font-size:14px;font-weight:600">Recent Calls</h3>
-      <table class="table" style="margin-top:10px"><thead><tr><th>Patient</th><th>Department</th><th>Date</th><th>Sentiment</th></tr></thead>
-      <tbody>${c.calls.map(cl=>`<tr><td class="cell-main">${cl.patient_name||'Unknown'}</td><td>${cl.booking_data?.department||'—'}</td><td>${fmtDate(cl.created_at)}</td><td>${cl.sentiment||'—'}</td></tr>`).join('')||'<tr><td colspan="4" style="color:var(--text4)">No calls yet</td></tr>'}</tbody></table>
-      <h3 style="margin-top:20px;font-size:14px;font-weight:600">Invoices</h3>
-      <table class="table" style="margin-top:10px"><thead><tr><th>Amount</th><th>Status</th><th>Due</th><th>Calls</th></tr></thead>
-      <tbody>${c.payments.map(p=>`<tr><td>₹${p.amount}</td><td>${badge(p.status)}</td><td>${fmtDate(p.due_date)}</td><td>${p.calls_used}/${p.calls_included}</td></tr>`).join('')||'<tr><td colspan="4" style="color:var(--text4)">No invoices</td></tr>'}</tbody></table>
-    </div>`;
+  const d=await api('/api/clients/'+id);const c=d.client;const cl=avatarColor(c.name);
+  document.getElementById('client-detail').innerHTML=`<div class="detail" style="margin-top:16px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px"><div style="display:flex;gap:14px;align-items:center"><div style="width:48px;height:48px;border-radius:14px;background:${cl}18;color:${cl};display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700">${c.name[0]}</div><div><h3 style="margin-bottom:2px;font-size:18px">${c.name}</h3><div style="font-size:12px;color:var(--text4)">${c.plan} · ₹${c.price_per_month}/mo</div></div></div><button class="btn btn-danger btn-sm" onclick="deleteClient('${c.id}')">Delete</button></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px">
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center"><div style="font-size:22px;font-weight:800;color:var(--blue)">${c.total_calls}</div><div style="font-size:10px;color:var(--text4);text-transform:uppercase;letter-spacing:1px;margin-top:4px">Calls</div></div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center"><div style="font-size:22px;font-weight:800;color:var(--green)">${c.total_duration}m</div><div style="font-size:10px;color:var(--text4);text-transform:uppercase;letter-spacing:1px;margin-top:4px">Duration</div></div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center"><div style="font-size:22px;font-weight:800;color:var(--purple)">${c.payments.length}</div><div style="font-size:10px;color:var(--text4);text-transform:uppercase;letter-spacing:1px;margin-top:4px">Invoices</div></div>
+    </div>
+    <div class="detail-row"><span class="dr-label">API Key</span><code>${c.api_key}</code></div>
+    <div class="detail-row"><span class="dr-label">Phone</span>${c.phone||'—'}</div>
+    <div class="detail-row"><span class="dr-label">WhatsApp</span>${c.whatsapp_number||'—'}</div>
+    <h3 style="margin-top:18px;font-size:14px;font-weight:600">Recent Calls</h3>
+    <table class="table" style="margin-top:8px"><thead><tr><th>Patient</th><th>Date</th><th>Sentiment</th></tr></thead><tbody>${c.calls.map(cl=>`<tr><td class="cell-main">${cl.patient_name||'Unknown'}</td><td>${fmtDate(cl.created_at)}</td><td>${badge(cl.sentiment?.toLowerCase().includes('positive')?'active':cl.sentiment?.toLowerCase().includes('follow')?'pending':'inactive')}</td></tr>`).join('')||'<tr><td colspan="3" style="color:var(--text4)">No calls</td></tr>'}</tbody></table>
+  </div>`;
 }
 
 function showAddClient(){document.getElementById('add-client-modal').classList.add('show')}
 function closeModal(){document.getElementById('add-client-modal').classList.remove('show')}
-async function addClient(){
-  const d={name:document.getElementById('f-name').value,phone:document.getElementById('f-phone').value,email:document.getElementById('f-email').value,whatsapp_number:document.getElementById('f-whatsapp').value,plan:document.getElementById('f-plan').value,sarvam_agent_id:document.getElementById('f-sarvam').value};
-  if(!d.name)return;await apiPost('/api/clients',d);closeModal();loadClients();
-}
-async function deleteClient(id){if(!confirm('Delete this client?'))return;await apiDel('/api/clients/'+id);document.getElementById('client-detail').innerHTML='';loadClients()}
+async function addClient(){const d={name:document.getElementById('f-name').value,phone:document.getElementById('f-phone').value,whatsapp_number:document.getElementById('f-whatsapp').value,plan:document.getElementById('f-plan').value};if(!d.name)return;await apiPost('/api/clients',d);closeModal();loadClients()}
+async function deleteClient(id){if(!confirm('Delete?'))return;await apiDel('/api/clients/'+id);document.getElementById('client-detail').innerHTML='';loadClients()}
 
-/* ═══════ CALLS ═══════ */
 async function loadCalls(){
   const d=await api('/api/calls?limit=50');
-  document.getElementById('calls-table').innerHTML=d.calls.length?d.calls.map(c=>{
-    const dept=c.booking_data?.department||'—';
-    const sentBadge=c.sentiment?.toLowerCase().includes('positive')?'active':c.sentiment?.toLowerCase().includes('follow')?'pending':'inactive';
-    return`<tr><td class="cell-main">${c.patient_name||'Unknown'}</td><td>${clientsMap[c.client_id]||c.client_id}</td><td>${dept}</td><td>${fmtDur(c.duration_seconds)}</td><td>${badge(sentBadge)}</td><td>${fmtDate(c.created_at)}</td><td><button class="btn btn-sm btn-ghost" onclick="viewCall('${c.id}')">View</button></td></tr>`;
-  }).join(''):'<tr><td colspan="7" class="empty"><div class="empty-icon">📞</div><div>No calls yet</div></td></tr>';
+  document.getElementById('calls-table').innerHTML=d.calls.length?d.calls.map(c=>`<tr><td class="cell-main">${c.patient_name||'Unknown'}</td><td>${clientsMap[c.client_id]||''}</td><td>${fmtDur(c.duration_seconds)}</td><td>${badge(c.sentiment?.toLowerCase().includes('positive')?'active':c.sentiment?.toLowerCase().includes('follow')?'pending':'inactive')}</td><td>${fmtDate(c.created_at)}</td><td><button class="btn btn-sm btn-ghost" onclick="viewCall('${c.id}')">View</button></td></tr>`).join(''):'<tr><td colspan="6" class="empty"><div class="empty-icon">📞</div>No calls yet</td></tr>';
 }
 
 async function viewCall(id){
   const d=await api('/api/calls/'+id);const c=d.call;
-  const transcript=(c.transcript||[]).map(t=>`<div style="margin-bottom:6px"><span class="${t.role==='agent'?'t-agent':'t-user'}" style="font-size:11px">${t.role==='agent'?'Agent':'Patient'}:</span> <span style="color:var(--text);font-size:12px">${t.text}</span></div>`).join('');
-  let bookingHtml='';
-  if(c.booking_data){bookingHtml=`<h3 style="margin-top:16px;font-size:13px;font-weight:600">Booking Details</h3>
-    <div class="detail-row"><span class="dr-label">Patient</span><span>${c.booking_data.patient_name||'—'}</span></div>
-    <div class="detail-row"><span class="dr-label">Department</span><span>${c.booking_data.department||'—'}</span></div>
-    <div class="detail-row"><span class="dr-label">Date</span><span>${c.booking_data.date||'—'}</span></div>
-    <div class="detail-row"><span class="dr-label">Time</span><span>${c.booking_data.time||'—'}</span></div>`;}
+  const transcript=(c.transcript||[]).map(t=>`<div style="margin-bottom:4px"><span class="${t.role==='agent'?'t-agent':'t-user'}" style="font-size:11px">${t.role==='agent'?'Agent':'Patient'}:</span> <span style="font-size:12px">${t.text}</span></div>`).join('');
   document.getElementById('call-detail').innerHTML=`<div class="detail" style="margin-top:12px">
-    <h3>Call Details</h3>
-    <div class="detail-row"><span class="dr-label">Patient</span><span>${c.patient_name||'Unknown'}</span></div>
-    <div class="detail-row"><span class="dr-label">Duration</span><span>${fmtDur(c.duration_seconds)}</span></div>
-    <div class="detail-row"><span class="dr-label">Language</span><span>${c.language?.toUpperCase()}</span></div>
-    <div class="detail-row"><span class="dr-label">Sentiment</span><span>${c.sentiment||'—'}</span></div>
-    <div class="detail-row"><span class="dr-label">Summary</span><span style="font-size:12px;color:var(--text2)">${c.summary||'No summary'}</span></div>
-    ${bookingHtml}
-    <h3 style="margin-top:16px;font-size:13px;font-weight:600">Transcript</h3>
-    <div class="transcript">${transcript||'<div style="color:var(--text4)">No transcript</div>'}</div></div>`;
+    <h3>📞 Call Details</h3>
+    <div class="detail-row"><span class="dr-label">Patient</span>${c.patient_name||'Unknown'}</div>
+    <div class="detail-row"><span class="dr-label">Duration</span>${fmtDur(c.duration_seconds)}</div>
+    <div class="detail-row"><span class="dr-label">Sentiment</span>${badge(c.sentiment?.toLowerCase().includes('positive')?'active':c.sentiment?.toLowerCase().includes('follow')?'pending':'inactive')}</div>
+    <div class="detail-row"><span class="dr-label">Summary</span><span style="font-size:12px;max-width:60%">${c.summary||'—'}</span></div>
+    <h3 style="margin-top:14px;font-size:13px;font-weight:600">Transcript</h3>
+    <div class="transcript">${transcript||'No transcript available'}</div>
+  </div>`;
 }
 
-/* ═══════ PAYMENTS ═══════ */
 async function loadPayments(){
   const d=await api('/api/payments');
-  const paid=d.payments.filter(p=>p.status==='paid');const pending=d.payments.filter(p=>p.status==='pending');
-  document.getElementById('payment-stats').innerHTML=`
-    <div class="stat-card c-green reveal"><div class="stat-icon green">₹</div><div class="stat-label">Collected</div><div class="stat-value sv">₹${paid.reduce((s,p)=>s+p.amount,0).toLocaleString()}</div></div>
-    <div class="stat-card c-pink reveal reveal-delay-1"><div class="stat-icon pink">₹</div><div class="stat-label">Pending</div><div class="stat-value sv">₹${pending.reduce((s,p)=>s+p.amount,0).toLocaleString()}</div></div>
-    <div class="stat-card c-blue reveal reveal-delay-2"><div class="stat-icon blue">✓</div><div class="stat-label">Paid</div><div class="stat-value sv">${paid.length}</div></div>
-    <div class="stat-card c-purple reveal reveal-delay-3"><div class="stat-icon purple">!</div><div class="stat-label">Unpaid</div><div class="stat-value sv">${pending.length}</div></div>`;
-  document.getElementById('payments-table').innerHTML=d.payments.length?d.payments.map(p=>`
-    <tr><td class="cell-main">${clientsMap[p.client_id]||p.client_id}</td><td style="font-weight:600">₹${p.amount.toLocaleString()}</td><td>${badge(p.status)}</td><td>${fmtDate(p.due_date)}</td><td>${p.calls_used}/${p.calls_included}</td>
-    <td>${p.status==='pending'?`<button class="btn btn-sm btn-success" onclick="markPaid('${p.id}')">Mark Paid</button> <button class="btn btn-sm btn-warning" onclick="sendReminder('${p.id}')">Remind</button>`:`<span style="color:var(--green);font-size:12px">Paid ✓</span>`}</td></tr>`).join(''):'<tr><td colspan="6" class="empty"><div class="empty-icon">💰</div><div>No payments</div></td></tr>';
-  setTimeout(initReveal,50);
-}
-async function markPaid(id){await apiPut('/api/payments/'+id+'/mark-paid',{});loadPayments()}
-async function sendReminder(id){if(!confirm('Send WhatsApp reminder?'))return;const r=await apiPost('/api/payments/'+id+'/remind',{});alert(r.status==='sent'?'Sent!':'Failed: '+(r.error||'Not configured'))}
-
-/* ═══════ WHATSAPP ═══════ */
-async function loadWhatsApp(){
-  const d=await api('/api/whatsapp-logs');
-  document.getElementById('whatsapp-table').innerHTML=d.logs.length?d.logs.map(l=>`
-    <tr><td>${badge(l.type==='call_summary'?'sent':'failed')}</td><td>${l.recipient}</td><td>${badge(l.status)}</td><td style="max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text4);font-size:12px">${l.message.substring(0,80)}...</td><td>${fmtDate(l.created_at)}</td></tr>`).join(''):'<tr><td colspan="5" class="empty"><div class="empty-icon">📱</div><div>No messages yet</div></td></tr>';
+  document.getElementById('payments-table').innerHTML=d.payments.length?d.payments.map(p=>`<tr><td class="cell-main">${clientsMap[p.client_id]||''}</td><td style="font-weight:600">₹${p.amount.toLocaleString()}</td><td>${badge(p.status)}</td><td>${fmtDate(p.due_date)}</td><td>${p.calls_used}/${p.calls_included}</td><td>${p.status==='pending'?`<button class="btn btn-sm btn-ghost" onclick="apiPost('/api/payments/${p.id}/mark-paid',{}).then(()=>loadPayments())">Mark Paid</button>`:''}</td></tr>`).join(''):'<tr><td colspan="6" class="empty"><div class="empty-icon">💰</div>No invoices</td></tr>';
 }
 
-/* ═══════ PAGE ROUTER ═══════ */
-function loadPage(p){switch(p){case'overview':loadOverview();break;case'clients':loadClients();break;case'calls':loadCalls();break;case'payments':loadPayments();break;case'whatsapp':loadWhatsApp();break}}
+async function loadMessages(){
+  const d=await api('/api/whatsapp-logs?limit=50');
+  document.getElementById('whatsapp-table').innerHTML=d.logs.length?d.logs.map(l=>`<tr><td>${l.type}</td><td style="font-size:12px">${l.recipient}</td><td>${badge(l.status)}</td><td style="font-size:11px;color:var(--text3);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${l.message.substring(0,60)}...</td><td>${fmtDate(l.created_at)}</td></tr>`).join(''):'<tr><td colspan="5" class="empty"><div class="empty-icon">💬</div>No messages yet</td></tr>';
+}
 
-// Init
+/* INIT */
 loadOverview();
 </script>
 </body>
