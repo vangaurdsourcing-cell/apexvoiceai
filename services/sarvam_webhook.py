@@ -13,6 +13,13 @@ from models import Client, Call
 from services.summary import generate_call_summary, format_summary_for_whatsapp
 from services.whatsapp import whatsapp_sender
 
+# Import notification system from app
+try:
+    from app import push_notification
+except ImportError:
+    def push_notification(ntype, title, message, call_id=""):
+        pass
+
 
 async def handle_sarvam_webhook(payload: dict) -> dict:
     """
@@ -135,6 +142,14 @@ async def handle_sarvam_native(payload: dict) -> dict:
             call_id=call.id,
             client_id=client.id
         )
+
+    # Push notification
+    push_notification(
+        "call",
+        f"New Call: {summary.get('patient_name', 'Unknown')}",
+        f"{client.name} — {summary.get('sentiment', 'Neutral')} — {int(duration)}s",
+        call.id
+    )
 
     return {
         "status": "ok",

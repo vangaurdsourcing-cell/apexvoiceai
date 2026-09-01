@@ -314,6 +314,106 @@ async def sarvam_webhook_verify(request: Request):
     return {"status": "ok", "message": "Apex AI webhook is live"}
 
 
+# ─── Analytics ───────────────────────────────────────────────
+
+@app.get("/api/analytics/calls-by-day")
+async def calls_by_day():
+    """Get call counts for the last 7 days."""
+    conn = get_db()
+    days = []
+    now = datetime.now()
+    for i in range(6, -1, -1):
+        day = (now - timedelta(days=i)).strftime("%Y-%m-%d")
+        label = (now - timedelta(days=i)).strftime("%a")
+        row = conn.execute("SELECT COUNT(*) as cnt FROM calls WHERE date(created_at) = ?", (day,)).fetchone()
+        days.append({"label": label, "value": row["cnt"] if row else 0, "date": day})
+    conn.close()
+    return {"days": days}
+
+
+@app.get("/api/analytics/sentiment")
+async def sentiment_distribution():
+    """Get sentiment breakdown."""
+    conn = get_db()
+    rows = conn.execute("SELECT sentiment, COUNT(*) as cnt FROM calls GROUP BY sentiment").fetchall()
+    conn.close()
+    result = {"Positive": 0, "Neutral": 0, "Needs Follow-up": 0}
+    for r in rows:
+        s = r["sentiment"] or "Neutral"
+        result[s] = r["cnt"]
+    return result
+
+
+@app.get("/api/analytics/hourly")
+async def hourly_distribution():
+    """Get call distribution by hour."""
+    conn = get_db()
+    rows = conn.execute("SELECT strftime('%H', created_at) as hour, COUNT(*) as cnt FROM calls GROUP BY hour ORDER BY hour").fetchall()
+    conn.close()
+    hours = [{"hour": int(r["hour"]), "count": r["cnt"]} for r in rows]
+    return {"hours": hours}
+
+
+@app.get("/api/analytics/client-health")
+async def client_api_health():
+    """Check webhook connectivity for each client."""
+    clients = Client.list_all()
+    result = []
+    for c in clients:
+        has_key = bool(c.api_key)
+        has_webhook = bool(c.sarvam_agent_id)
+        total_calls = Call.count_by_client(c.id)
+        result.append({
+            "client_id": c.id,
+            "name": c.name,
+            "api_key_valid": has_key,
+            "api_key": c.api_key[:12] + "..." if c.api_key else "",
+            "webhook_configured": has_webhook,
+            "has_received_calls": total_calls > 0,
+            "total_calls": total_calls,
+            "status": "active" if total_calls > 0 else "pending",
+        })
+    return {"clients": result}
+
+
+# ─── Push Notifications ──────────────────────────────────────
+# Store recent notifications in memory (last 50)
+notifications = []
+
+def push_notification(ntype, title, message, call_id=""):
+    import uuid
+    notif = {
+        "id": str(uuid.uuid4().hex[:8]),
+        "type": ntype,
+        "title": title,
+        "message": message,
+        "call_id": call_id,
+        "read": False,
+        "created_at": datetime.now().isoformat(),
+    }
+    notifications.insert(0, notif)
+    if len(notifications) > 50:
+        notifications.pop()
+    return notif
+
+
+@app.get("/api/notifications")
+async def list_notifications(limit: int = Query(20)):
+    return {"notifications": notifications[:limit]}
+
+
+@app.get("/api/notifications/unread-count")
+async def unread_count():
+    return {"count": len([n for n in notifications if not n["read"]])}
+
+
+@app.post("/api/notifications/mark-read")
+async def mark_all_read():
+    for n in notifications:
+        n["read"] = True
+    return {"status": "ok"}
+
+
 # ─── Health Check ─────────────────────────────────────────────
 
 @app.get("/health")
