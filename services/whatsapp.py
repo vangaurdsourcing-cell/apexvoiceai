@@ -11,6 +11,7 @@ class WhatsAppSender:
         self.auth_token = os.environ.get("TWILIO_AUTH_TOKEN", "")
         self.whatsapp_from = os.environ.get("TWILIO_WHATSAPP_FROM", "whatsapp:+14155238886")
         self.sms_from = os.environ.get("TWILIO_SMS_FROM", "")
+        self.template_sid = os.environ.get("TWILIO_TEMPLATE_SID", "")
         self.api_url = "https://api.twilio.com/2010-04-01"
 
     @property
@@ -37,15 +38,30 @@ class WhatsAppSender:
         if channel == "whatsapp":
             from_number = self.whatsapp_from
             to_number = f"whatsapp:{phone}"
+            
+            # For WhatsApp, use template if available
+            if self.template_sid:
+                payload = {
+                    "To": to_number,
+                    "From": from_number,
+                    "ContentSid": self.template_sid,
+                    "ContentVariables": f'{{"1":"{message}"}}'
+                }
+            else:
+                # Fallback to free-form message (may fail for business-initiated)
+                payload = {
+                    "To": to_number,
+                    "From": from_number,
+                    "Body": message
+                }
         else:
             from_number = self.sms_from or phone
             to_number = phone
-
-        payload = {
-            "To": to_number,
-            "From": from_number,
-            "Body": message
-        }
+            payload = {
+                "To": to_number,
+                "From": from_number,
+                "Body": message
+            }
 
         try:
             async with httpx.AsyncClient() as client:
