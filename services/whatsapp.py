@@ -11,7 +11,6 @@ class WhatsAppSender:
         self.auth_token = os.environ.get("TWILIO_AUTH_TOKEN", "")
         self.whatsapp_from = os.environ.get("TWILIO_WHATSAPP_FROM", "whatsapp:+14155238886")
         self.sms_from = os.environ.get("TWILIO_SMS_FROM", "")
-        self.template_sid = os.environ.get("TWILIO_TEMPLATE_SID", "")
         self.api_url = "https://api.twilio.com/2010-04-01"
 
     @property
@@ -34,34 +33,15 @@ class WhatsAppSender:
             phone = "91" + phone
         phone = "+" + phone
 
-        # Choose channel
-        if channel == "whatsapp":
-            from_number = self.whatsapp_from
-            to_number = f"whatsapp:{phone}"
-            
-            # For WhatsApp, use template if available
-            if self.template_sid:
-                payload = {
-                    "To": to_number,
-                    "From": from_number,
-                    "ContentSid": self.template_sid,
-                    "ContentVariables": f'{{"1":"{message}"}}'
-                }
-            else:
-                # Fallback to free-form message (may fail for business-initiated)
-                payload = {
-                    "To": to_number,
-                    "From": from_number,
-                    "Body": message
-                }
-        else:
-            from_number = self.sms_from or phone
-            to_number = phone
-            payload = {
-                "To": to_number,
-                "From": from_number,
-                "Body": message
-            }
+        # Choose channel - always use SMS for reliability
+        # WhatsApp requires pre-approved templates for business-initiated messages
+        from_number = self.sms_from or phone
+        to_number = phone
+        payload = {
+            "To": to_number,
+            "From": from_number,
+            "Body": message
+        }
 
         try:
             async with httpx.AsyncClient() as client:
@@ -93,20 +73,16 @@ class WhatsAppSender:
             return False
 
     async def send_call_summary(self, to: str, summary_text: str, call_id: str, client_id: str = "") -> bool:
-        """Send a call summary via WhatsApp."""
-        return await self.send_message(to, summary_text, client_id, msg_type="call_summary", channel="whatsapp")
+        """Send a call summary via SMS."""
+        return await self.send_message(to, summary_text, client_id, msg_type="call_summary", channel="sms")
 
     async def send_payment_reminder(self, to: str, reminder_text: str, client_id: str = "") -> bool:
-        """Send a payment reminder via WhatsApp."""
-        return await self.send_message(to, reminder_text, client_id, msg_type="payment_reminder", channel="whatsapp")
+        """Send a payment reminder via SMS."""
+        return await self.send_message(to, reminder_text, client_id, msg_type="payment_reminder", channel="sms")
 
     async def send_daily_report(self, to: str, report_text: str, client_id: str = "") -> bool:
-        """Send a daily report via WhatsApp."""
-        return await self.send_message(to, report_text, client_id, msg_type="daily_report", channel="whatsapp")
-
-    async def send_sms(self, to: str, message: str, client_id: str = "", msg_type: str = "summary") -> bool:
-        """Send an SMS message."""
-        return await self.send_message(to, message, client_id, msg_type=msg_type, channel="sms")
+        """Send a daily report via SMS."""
+        return await self.send_message(to, report_text, client_id, msg_type="daily_report", channel="sms")
 
 
 # Singleton
