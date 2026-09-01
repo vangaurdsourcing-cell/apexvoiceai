@@ -5,4 +5,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 RUN mkdir -p data/calls
 EXPOSE 8766
-CMD ["python", "server.py"]
+CMD ["python", "app.py"]
