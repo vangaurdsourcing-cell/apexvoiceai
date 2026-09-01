@@ -219,9 +219,7 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg)
 /* ═══ SCROLLBAR ═══ */
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:2px}
 
-/* ═══ REVEAL ═══ */
-.reveal{opacity:0;transform:translateY(12px);transition:opacity .5s var(--transition),transform .5s var(--transition)}
-.reveal.visible{opacity:1;transform:none}
+/* ═══ REVEAL ═══ */.reveal{opacity:0;transform:translateY(12px);transition:opacity .5s var(--transition),transform .5s var(--transition)}.reveal.visible,.reveal.force{opacity:1;transform:none}
 .rd1{transition-delay:.08s}.rd2{transition-delay:.16s}.rd3{transition-delay:.24s}.rd4{transition-delay:.32s}
 
 /* ═══ RESPONSIVE — MOBILE ═══ */
