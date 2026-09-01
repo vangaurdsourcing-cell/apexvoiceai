@@ -1,4 +1,4 @@
-"""Apex AI — WhatsApp/SMS Sender via Twilio"""
+"""Apex AI — WhatsApp Sender via Twilio Sandbox"""
 import os
 import httpx
 from typing import Optional
@@ -9,16 +9,15 @@ class WhatsAppSender:
     def __init__(self):
         self.account_sid = os.environ.get("TWILIO_ACCOUNT_SID", "")
         self.auth_token = os.environ.get("TWILIO_AUTH_TOKEN", "")
-        self.whatsapp_from = os.environ.get("TWILIO_WHATSAPP_FROM", "whatsapp:+14155238886")
-        self.sms_from = os.environ.get("TWILIO_SMS_FROM", "")
+        self.whatsapp_from = os.environ.get("TWILIO_WHATSAPP_FROM", "whatsapp:+17372508034")
         self.api_url = "https://api.twilio.com/2010-04-01"
 
     @property
     def is_configured(self) -> bool:
         return bool(self.account_sid and self.auth_token)
 
-    async def send_message(self, to: str, message: str, client_id: str = "", msg_type: str = "summary", channel: str = "whatsapp") -> bool:
-        """Send a message via Twilio (WhatsApp or SMS)."""
+    async def send_message(self, to: str, message: str, client_id: str = "", msg_type: str = "summary") -> bool:
+        """Send a WhatsApp message via Twilio Sandbox."""
         if not self.is_configured:
             WhatsAppLog(
                 client_id=client_id, type=msg_type,
@@ -27,16 +26,14 @@ class WhatsAppSender:
             ).save()
             return False
 
-        # Format phone number
+        # Format phone number for WhatsApp
         phone = to.replace("+", "").replace(" ", "").replace("-", "")
         if not phone.startswith("91") and len(phone) == 10:
             phone = "91" + phone
-        phone = "+" + phone
+        
+        to_number = f"whatsapp:+{phone}"
+        from_number = self.whatsapp_from
 
-        # Choose channel - always use SMS for reliability
-        # WhatsApp requires pre-approved templates for business-initiated messages
-        from_number = self.sms_from or phone
-        to_number = phone
         payload = {
             "To": to_number,
             "From": from_number,
@@ -73,16 +70,16 @@ class WhatsAppSender:
             return False
 
     async def send_call_summary(self, to: str, summary_text: str, call_id: str, client_id: str = "") -> bool:
-        """Send a call summary via SMS."""
-        return await self.send_message(to, summary_text, client_id, msg_type="call_summary", channel="sms")
+        """Send a call summary via WhatsApp."""
+        return await self.send_message(to, summary_text, client_id, msg_type="call_summary")
 
     async def send_payment_reminder(self, to: str, reminder_text: str, client_id: str = "") -> bool:
-        """Send a payment reminder via SMS."""
-        return await self.send_message(to, reminder_text, client_id, msg_type="payment_reminder", channel="sms")
+        """Send a payment reminder via WhatsApp."""
+        return await self.send_message(to, reminder_text, client_id, msg_type="payment_reminder")
 
     async def send_daily_report(self, to: str, report_text: str, client_id: str = "") -> bool:
-        """Send a daily report via SMS."""
-        return await self.send_message(to, report_text, client_id, msg_type="daily_report", channel="sms")
+        """Send a daily report via WhatsApp."""
+        return await self.send_message(to, report_text, client_id, msg_type="daily_report")
 
 
 # Singleton
