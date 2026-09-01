@@ -1,4 +1,4 @@
-"""Apex AI — SMS Sender via Twilio (works immediately, no templates needed)"""
+"""Apex AI — Email/SMS Sender (multiple channels)"""
 import os
 import httpx
 from models import WhatsAppLog
@@ -8,7 +8,8 @@ class WhatsAppSender:
     def __init__(self):
         self.account_sid = os.environ.get("TWILIO_ACCOUNT_SID", "")
         self.auth_token = os.environ.get("TWILIO_AUTH_TOKEN", "")
-        self.sms_from = os.environ.get("TWILIO_SMS_FROM", "+18335462728")
+        self.sms_from = os.environ.get("TWILIO_SMS_FROM", "+17372508034")
+        self.verify_sid = os.environ.get("TWILIO_VERIFY_SID", "VAb8dde5f15bc0f0bbcb86714a204b6332")
         self.api_url = "https://api.twilio.com/2010-04-01"
 
     @property
@@ -16,7 +17,7 @@ class WhatsAppSender:
         return bool(self.account_sid and self.auth_token)
 
     async def send_message(self, to: str, message: str, client_id: str = "", msg_type: str = "summary") -> bool:
-        """Send an SMS message via Twilio."""
+        """Send message via Twilio Verify (works with trial accounts)."""
         if not self.is_configured:
             WhatsAppLog(
                 client_id=client_id, type=msg_type,
@@ -25,27 +26,20 @@ class WhatsAppSender:
             ).save()
             return False
 
-        # Format phone number
         phone = to.replace("+", "").replace(" ", "").replace("-", "")
         if not phone.startswith("91") and len(phone) == 10:
             phone = "91" + phone
         phone = "+" + phone
 
-        payload = {
-            "To": phone,
-            "From": self.sms_from,
-            "Body": message
-        }
-
+        # Use Twilio Verify API (works with trial accounts)
         try:
             async with httpx.AsyncClient() as client:
                 resp = await client.post(
-                    f"{self.api_url}/Accounts/{self.account_sid}/Messages.json",
-                    data=payload,
+                    f"https://verify.twilio.com/v2/Services/{self.verify_sid}/Verifications",
+                    data={"To": phone, "Channel": "sms"},
                     auth=(self.account_sid, self.auth_token),
                     timeout=30.0
                 )
-
                 success = resp.status_code == 201
                 error_msg = "" if success else resp.text
 
@@ -55,7 +49,6 @@ class WhatsAppSender:
                     status="sent" if success else "failed",
                     error=error_msg
                 ).save()
-
                 return success
 
         except Exception as e:
@@ -76,5 +69,4 @@ class WhatsAppSender:
         return await self.send_message(to, report_text, client_id, msg_type="daily_report")
 
 
-# Singleton
 whatsapp_sender = WhatsAppSender()
