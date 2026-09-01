@@ -1,7 +1,6 @@
-"""Apex AI — WhatsApp Sender via Twilio Sandbox"""
+"""Apex AI — SMS Sender via Twilio (works immediately, no templates needed)"""
 import os
 import httpx
-from typing import Optional
 from models import WhatsAppLog
 
 
@@ -9,7 +8,7 @@ class WhatsAppSender:
     def __init__(self):
         self.account_sid = os.environ.get("TWILIO_ACCOUNT_SID", "")
         self.auth_token = os.environ.get("TWILIO_AUTH_TOKEN", "")
-        self.whatsapp_from = os.environ.get("TWILIO_WHATSAPP_FROM", "whatsapp:+17372508034")
+        self.sms_from = os.environ.get("TWILIO_SMS_FROM", "+18335462728")
         self.api_url = "https://api.twilio.com/2010-04-01"
 
     @property
@@ -17,7 +16,7 @@ class WhatsAppSender:
         return bool(self.account_sid and self.auth_token)
 
     async def send_message(self, to: str, message: str, client_id: str = "", msg_type: str = "summary") -> bool:
-        """Send a WhatsApp message via Twilio Sandbox."""
+        """Send an SMS message via Twilio."""
         if not self.is_configured:
             WhatsAppLog(
                 client_id=client_id, type=msg_type,
@@ -26,17 +25,15 @@ class WhatsAppSender:
             ).save()
             return False
 
-        # Format phone number for WhatsApp
+        # Format phone number
         phone = to.replace("+", "").replace(" ", "").replace("-", "")
         if not phone.startswith("91") and len(phone) == 10:
             phone = "91" + phone
-        
-        to_number = f"whatsapp:+{phone}"
-        from_number = self.whatsapp_from
+        phone = "+" + phone
 
         payload = {
-            "To": to_number,
-            "From": from_number,
+            "To": phone,
+            "From": self.sms_from,
             "Body": message
         }
 
@@ -54,7 +51,7 @@ class WhatsAppSender:
 
                 WhatsAppLog(
                     client_id=client_id, type=msg_type,
-                    message=message, recipient=to_number,
+                    message=message, recipient=phone,
                     status="sent" if success else "failed",
                     error=error_msg
                 ).save()
@@ -64,21 +61,18 @@ class WhatsAppSender:
         except Exception as e:
             WhatsAppLog(
                 client_id=client_id, type=msg_type,
-                message=message, recipient=to,
+                message=message, recipient=phone,
                 status="failed", error=str(e)
             ).save()
             return False
 
     async def send_call_summary(self, to: str, summary_text: str, call_id: str, client_id: str = "") -> bool:
-        """Send a call summary via WhatsApp."""
         return await self.send_message(to, summary_text, client_id, msg_type="call_summary")
 
     async def send_payment_reminder(self, to: str, reminder_text: str, client_id: str = "") -> bool:
-        """Send a payment reminder via WhatsApp."""
         return await self.send_message(to, reminder_text, client_id, msg_type="payment_reminder")
 
     async def send_daily_report(self, to: str, report_text: str, client_id: str = "") -> bool:
-        """Send a daily report via WhatsApp."""
         return await self.send_message(to, report_text, client_id, msg_type="daily_report")
 
 
